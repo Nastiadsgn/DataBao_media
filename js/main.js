@@ -2,7 +2,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     initAgentChat();
     initNewsFilters();
+    initTickerClose();
 });
+
+function initTickerClose() {
+    const ticker = document.querySelector('.breaking-ticker');
+    const closeBtn = document.querySelector('.ticker-close');
+    
+    if (!ticker || !closeBtn) return;
+    
+    closeBtn.addEventListener('click', function() {
+        ticker.style.display = 'none';
+    });
+}
 
 function initAgentChat() {
     const trigger = document.getElementById('agent-trigger');

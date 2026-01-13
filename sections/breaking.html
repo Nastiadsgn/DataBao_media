@@ -1,0 +1,898 @@
+F<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking Reports | DataBao Media</title>
+    <meta name="description" content="Breaking news, product updates, and real-time alerts from DataBao.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    
+    <style>
+        /* Breaking Reports Page Styles */
+        .reports-page {
+            background: var(--color-white);
+        }
+        
+        .breaking-hero {
+            padding: var(--space-6) 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        /* Market Snapshot Bar */
+        .market-snapshot {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            padding: 16px 0;
+            border-bottom: none;
+            font-size: 0.75rem;
+            overflow-x: auto;
+        }
+        
+        .snapshot-label {
+            font-weight: 700;
+            color: var(--color-ink-600);
+            white-space: nowrap;
+        }
+        
+        .snapshot-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            white-space: nowrap;
+        }
+        
+        .snapshot-name {
+            font-weight: 600;
+            color: var(--color-ink-900);
+        }
+        
+        .snapshot-value {
+            color: var(--color-ink-600);
+        }
+        
+        .snapshot-change {
+            font-weight: 500;
+        }
+        
+        .snapshot-change.positive { color: #059669; }
+        .snapshot-change.negative { color: #dc2626; }
+        
+        .snapshot-link {
+            margin-left: auto;
+            color: var(--color-ink-500);
+            font-weight: 500;
+        }
+        
+        /* Hero Grid */
+        .hero-news-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: var(--space-6);
+            padding: 0;
+        }
+        
+        /* Lead Story */
+        .lead-story {
+            position: relative;
+            width: 100%;
+            grid-column: span 5;
+        }
+        
+        .lead-story .story-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: var(--color-paper-100);
+            margin-bottom: var(--space-3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lead-story .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .lead-story .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-2) var(--space-3);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 0.6875rem;
+        }
+        
+        .lead-story .story-headline {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-3);
+        }
+        
+        .lead-story .story-dek {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--color-ink-600);
+            margin-bottom: var(--space-3);
+        }
+        
+        .story-meta {
+            font-size: 0.75rem;
+            color: var(--color-ink-400);
+        }
+        
+        .story-meta .author {
+            color: var(--color-ink-600);
+        }
+        
+        /* Secondary Story */
+        .secondary-story .story-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--color-paper-100);
+            margin-bottom: var(--space-3);
+            overflow: hidden;
+        }
+        
+        .secondary-story .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .secondary-story .image-credit {
+            font-size: 0.625rem;
+            color: var(--color-ink-400);
+            margin-top: var(--space-1);
+        }
+        
+        .secondary-story .story-headline {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-2);
+        }
+        
+        .secondary-story .story-dek {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--color-ink-600);
+            margin-bottom: var(--space-2);
+        }
+        
+        /* Sidebar Stories */
+        .sidebar-stories {
+            border-left: none;
+            padding-left: 0;
+            grid-column: span 3;
+        }
+        
+        .sidebar-story {
+            padding-bottom: var(--space-4);
+            margin-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-ink-100);
+        }
+        
+        .sidebar-story:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .sidebar-story .story-headline {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-2);
+        }
+        
+        .sidebar-story .story-dek {
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: var(--color-ink-600);
+            margin-bottom: var(--space-2);
+        }
+        
+        .sidebar-story .story-image {
+            width: 80px;
+            height: 80px;
+            background: var(--color-paper-100);
+            float: right;
+            margin-left: var(--space-3);
+        }
+        
+        /* Story Strip */
+        .story-strip {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-4);
+            padding: var(--space-6) 0;
+            border-bottom: 1px solid var(--color-ink-200);
+        }
+        
+        .strip-story .story-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--color-paper-100);
+            margin-bottom: var(--space-2);
+            overflow: hidden;
+        }
+        
+        .strip-story .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .strip-story .story-headline {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--color-ink-900);
+        }
+        
+        /* Latest Section */
+        .latest-section {
+            padding-top: 16px;
+            padding-bottom: var(--space-8);
+        }
+        
+        .latest-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-ink-900);
+            margin-bottom: var(--space-6);
+        }
+        
+        .latest-header h2 {
+            font-family: var(--font-body);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-ink-900);
+        }
+        
+        .latest-header .search-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 0.875rem;
+            color: var(--color-ink-500);
+        }
+        
+        .latest-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: var(--space-6);
+        }
+        
+        .latest-stories {
+            grid-column: span 5;
+        }
+        
+        .sidebar-widgets {
+            grid-column: span 3;
+        }
+        
+        /* Latest Stories List */
+        .latest-stories .story-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: var(--space-4);
+            padding: var(--space-5) 0;
+            border-bottom: 1px solid var(--color-ink-100);
+            height: 200px;
+        }
+        
+        .latest-stories .story-item:last-child {
+            border-bottom: none;
+        }
+        
+        .story-item .story-date {
+            font-size: 0.75rem;
+            color: var(--color-ink-400);
+        }
+        
+        .story-item .story-content .story-headline {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-2);
+        }
+        
+        .story-item .story-content .story-dek {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--color-ink-600);
+            margin-bottom: var(--space-2);
+        }
+        
+        /* Sidebar Widgets */
+        .sidebar-widgets {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .sidebar-widget {
+            background: #fff;
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .widget-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+            padding-bottom: 12px;
+        }
+
+        .widget-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .widget-tab {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f5f5f5;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .widget-tab:hover {
+            background: #e5e5e5;
+        }
+
+        .widget-tab.active {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .highlight-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .highlight-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .highlight-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .highlight-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #e5e5e5;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .highlight-description {
+            font-size: 14px;
+            color: #999;
+            margin: 0;
+        }
+
+        .widget-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .widget-tag {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border-radius: 24px;
+            font-size: 16px;
+            color: #666;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        .widget-tag:hover {
+            background: #e5e5e5;
+            color: #333;
+        }
+
+        .requests-count {
+            font-size: 18px;
+            color: #999;
+        }
+
+        .requests-count strong {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .requests-progress {
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #fbbf24;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .request-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .request-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+        }
+
+        .request-status {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid #e5e5e5;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .request-description {
+            font-size: 14px;
+            color: #999;
+            margin: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-news-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .sidebar-stories {
+                display: none;
+            }
+            
+            .story-strip {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .latest-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .story-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .market-snapshot {
+                display: none;
+            }
+            
+            .latest-stories .story-item {
+                grid-template-columns: 1fr;
+            }
+            
+            .story-item .story-date {
+                order: 1;
+            }
+            
+            .story-item .story-content {
+                order: 2;
+            }
+        }
+    </style>
+</head>
+<body class="reports-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Breaking News Ticker (if active) -->
+    <aside class="breaking-ticker" role="alert" aria-live="polite">
+        <div class="container">
+            <span class="ticker-label">NEW</span>
+            <div class="ticker-content">
+                <a href="#">Q4 earnings exceed analyst expectations by 12% — Full report available</a>
+            </div>
+            <button class="ticker-close" aria-label="Dismiss">&times;</button>
+        </div>
+    </aside>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <!-- Masthead -->
+        <div class="masthead">
+            <div class="container">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <a href="/" class="logo">
+                    <span class="logo-text">DataBao</span>
+                </a>
+                
+                <div class="masthead-actions">
+                    <button class="btn-search" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="#" class="user-avatar" aria-label="User profile">
+                        <span class="avatar-initials">JD</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="primary-nav" aria-label="Primary navigation">
+            <div class="container">
+                <ul class="nav-list" role="menubar">
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/breaking.html" role="menuitem" aria-haspopup="true">
+                            Breaking Reports
+                            <span class="nav-indicator live"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/research.html" role="menuitem" aria-haspopup="true">
+                            Data & Research
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/company-news.html" role="menuitem" aria-haspopup="true">
+                            Company News
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/events.html" role="menuitem" aria-haspopup="true">
+                            Events
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/rnd.html" role="menuitem" aria-haspopup="true">
+                            R&amp;D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <div class="container">
+            
+            <!-- Market Snapshot Bar -->
+            <div class="market-snapshot">
+                <span class="snapshot-item">
+                    <span class="snapshot-name">Active Users</span>
+                    <span class="snapshot-value">24,828</span>
+                    <span class="snapshot-change positive">+8.32%</span>
+                </span>
+                <span class="snapshot-item">
+                    <span class="snapshot-name">API Requests</span>
+                    <span class="snapshot-value">12.4M</span>
+                    <span class="snapshot-change positive">+10.6%</span>
+                </span>
+                <span class="snapshot-item">
+                    <span class="snapshot-name">Data Syncs</span>
+                    <span class="snapshot-value">892K</span>
+                    <span class="snapshot-change positive">+5.22%</span>
+                </span>
+                <a href="/sections/dashboards.html" class="snapshot-link">Full Overview</a>
+            </div>
+
+            <!-- Latest Section -->
+            <section class="latest-section">
+                <header class="latest-header">
+                    <h2>Latest</h2>
+                </header>
+
+                <div class="latest-grid">
+                    <div class="latest-stories">
+                        <article class="story-item">
+                            <div class="story-date">Dec. 26</div>
+                            <div class="story-content">
+                                <h3 class="story-headline">
+                                    <a href="/pages/article.html">DataBao's Real-Time Sync Engine Processes 1 Billion Records Daily, Setting New Industry Standard</a>
+                                </h3>
+                                <p class="story-dek">Enterprise customers now sync data across 200+ sources with sub-second latency. New architecture enables 10x throughput improvement.</p>
+                                <p class="story-meta">By <span class="author">Alex Chen</span></p>
+                            </div>
+                        </article>
+
+                        <article class="story-item">
+                            <div class="story-date">Dec. 26</div>
+                            <div class="story-content">
+                                <h3 class="story-headline">
+                                    <a href="/pages/article.html">Healthcare Sector Adoption Surges: 50 New Hospital Networks Join DataBao Platform</a>
+                                </h3>
+                                <p class="story-dek">HIPAA-compliant analytics solution enables healthcare providers to unify patient data while maintaining strict privacy standards.</p>
+                                <p class="story-meta">By <span class="author">Dr. Lisa Park</span></p>
+                            </div>
+                        </article>
+
+                        <article class="story-item">
+                            <div class="story-date">Dec. 25</div>
+                            <div class="story-content">
+                                <h3 class="story-headline">
+                                    <a href="/pages/article.html">Despite Market Volatility, DataBao Customers Report 35% Increase in Data-Driven Decision Making</a>
+                                </h3>
+                                <p class="story-dek">Annual survey reveals enterprises using DataBao analytics see measurable improvements in operational efficiency and revenue forecasting.</p>
+                                <p class="story-meta">By <span class="author">Marcus Johnson</span></p>
+                            </div>
+                        </article>
+
+                        <article class="story-item">
+                            <div class="story-date">Dec. 26</div>
+                            <div class="story-content">
+                                <h3 class="story-headline">
+                                    <a href="/pages/article.html">New Dashboard Templates: Pre-Built Analytics for Finance, Marketing, and Operations Teams</a>
+                                </h3>
+                                <p class="story-dek">Library of 50+ customizable templates helps teams get started in minutes. Templates based on best practices from 1,000+ enterprise deployments.</p>
+                                <p class="story-meta">By <span class="author">Rachel Kim</span></p>
+                            </div>
+                        </article>
+
+                        <article class="story-item">
+                            <div class="story-date">Dec. 25</div>
+                            <div class="story-content">
+                                <h3 class="story-headline">
+                                    <a href="/pages/article.html">DataBao University Launches: Free Certification Program for Data Analysts</a>
+                                </h3>
+                                <p class="story-dek">Comprehensive training program offers courses from beginner to advanced levels. Over 10,000 professionals enrolled in first week.</p>
+                                <p class="story-meta">By <span class="author">David Chen</span></p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="sidebar-widgets">
+                        <!-- Highlights Section -->
+                        <div class="sidebar-widget">
+                            <div class="widget-header">
+                                <h3 class="widget-title">Highlights</h3>
+                                <div class="widget-tabs">
+                                    <button class="widget-tab active">D</button>
+                                    <button class="widget-tab">W</button>
+                                    <button class="widget-tab">M</button>
+                                    <button class="widget-tab">Q</button>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-content">
+                                    <div class="highlight-value">+ 24,828</div>
+                                    <span class="highlight-badge">+25%</span>
+                                </div>
+                                <p class="highlight-description">Some info about particular highlight</p>
+                            </div>
+                        </div>
+
+                        <!-- Tags Section -->
+                        <div class="sidebar-widget">
+                            <h3 class="widget-title">Tags</h3>
+                            <div class="widget-tags">
+                                <span class="widget-tag">Revenue</span>
+                                <span class="widget-tag">Churn</span>
+                                <span class="widget-tag">Q3</span>
+                                <span class="widget-tag">Retention</span>
+                                <span class="widget-tag">Strategy</span>                                <span class="widget-tag">DataTools</span>
+                            </div>
+                        </div>
+
+                        <!-- Requests Section -->
+                        <div class="sidebar-widget">
+                            <div class="widget-header">
+                                <h3 class="widget-title">Requests</h3>
+                                <div class="requests-count"><strong>10</strong> /12</div>
+                            </div>
+                            <div class="requests-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 83%;"></div>
+                                </div>
+                            </div>
+                            <div class="request-card">
+                                <div class="request-header">
+                                    <h4 class="request-title">Revenue report</h4>
+                                    <span class="request-status">Completed</span>
+                                </div>
+                                <p class="request-description">Some info about particular highlight</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <span class="footer-logo">DataBao<span>Media</span></span>
+                    <p class="footer-tagline">News, Analysis & Research</p>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2024 DataBao Inc. All rights reserved.</p>
+                    <nav class="legal-links">
+                        <a href="/pages/privacy.html">Privacy Policy</a>
+                        <a href="/pages/terms.html">Terms of Use</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Agent Chat Button -->
+    <button class="agent-trigger" id="agent-trigger" aria-label="Open AI assistant">
+        <svg class="agent-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+        </svg>
+        <span class="agent-trigger-text">Ask agent about anything...</span>
+        <span class="agent-trigger-arrow disabled">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </span>
+    </button>
+
+    <!-- AI Agent Expanded Chat -->
+    <div class="agent-expanded" id="agent-expanded">
+        <!-- Header -->
+        <div class="agent-expanded-header">
+            <span class="agent-expanded-title">AI Agent</span>
+            <div class="agent-expanded-header-actions">
+                <button class="agent-expanded-expand" aria-label="Pin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="17" x2="12" y2="22"></line>
+                        <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+                    </svg>
+                </button>
+                <button class="agent-expanded-close" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Chat History Tabs -->
+        <div class="agent-chat-tabs" id="agent-chat-tabs">
+            <div class="agent-chat-tabs-scroll">
+                <div class="agent-chat-tab active" data-tab-id="1">
+                    <span class="agent-chat-tab-title">Breaking News</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="agent-chat-tab" data-tab-id="2">
+                    <span class="agent-chat-tab-title">Live Updates</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <button class="agent-chat-tab-new" id="agent-new-chat" aria-label="New chat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="agent-suggestions" id="agent-suggestions">
+            <div class="agent-suggestions-grid">
+                <button class="agent-suggestion" data-prompt="Summarize today's breaking news">
+                    <span class="agent-suggestion-text">Today's breaking news</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What are the most important updates?">
+                    <span class="agent-suggestion-text">Most important updates</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="Show me market-moving news">
+                    <span class="agent-suggestion-text">Market-moving news</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="Any breaking announcements?">
+                    <span class="agent-suggestion-text">Breaking announcements</span>
+                </button>
+            </div>
+        </div>
+        <div class="agent-expanded-chat" id="agent-expanded-chat"></div>
+        <div class="agent-expanded-inner">
+            <svg class="agent-expanded-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+            </svg>
+            <textarea class="agent-expanded-input" id="agent-expanded-input" placeholder="What do you want the agent to do?" rows="1"></textarea>
+            <div class="agent-expanded-actions">
+                <button class="agent-expanded-send" id="agent-expanded-send" aria-label="Send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

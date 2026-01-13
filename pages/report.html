@@ -1,0 +1,2552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q4 2024 Quarterly Report | DataBao</title>
+    <meta name="description" content="Q4 2024: Record Revenue as Platform Adoption Accelerates Across Enterprise Segment. Full financial report and analysis.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Q4 2024 Quarterly Report">
+    <meta property="og:description" content="Revenue grew 34% year-over-year. Full financial breakdown and analysis.">
+    <meta property="og:type" content="article">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    
+    <style>
+        /* IEA-Style Report Page */
+        .report-page {
+            background: #f2f2f2;
+        }
+        
+        .report-page .site-header {
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .report-page main {
+            padding: 4px 0 64px;
+        }
+        
+        #main-content {
+            color: var(--color-white);
+            background-color: var(--color-white);
+        }
+        
+        /* Page Title Section */
+        .report-title-section {
+            margin-bottom: 20px;
+        }
+        
+        .report-title-section h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        .report-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .report-meta-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .report-meta-bar strong {
+            color: #000;
+        }
+        
+        .report-meta-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-left: auto;
+        }
+        
+        .report-authors {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .report-authors strong {
+            margin-right: 4px;
+        }
+        
+        .author-avatars {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            max-width: 28px;
+            box-sizing: border-box;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-left: -8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+            background-color: var(--color-labs);
+        }
+        
+        .author-avatar:first-child {
+            margin-left: 0;
+        }
+        
+        .author-avatar:hover {
+            transform: none;
+            z-index: auto;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-names {
+            display: none;
+            gap: 4px;
+        }
+        
+        .author-names a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+        
+        .author-names a:hover {
+            color: #6366f1;
+            text-decoration: underline;
+        }
+        
+        .author-names span {
+            color: #999;
+        }
+        
+        /* Dashboard Grid - Large Cards */
+        .dashboard-grid-large {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        /* Dashboard Grid - Small Cards */
+        .dashboard-grid-small {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+            height: 140px;
+        }
+        
+        /* Stat Card - IEA Style */
+        .stat-card {
+            background: unset;
+            border-radius: 0px;
+            padding: 0;
+            box-shadow: none;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0);
+            border-top: 1px solid var(--color-paper-200);
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+        }
+        
+        a.stat-card {
+            border-top-color: var(--color-ink-800);
+        }
+        
+        .stat-card-header {
+            margin-bottom: 20px;
+        }
+        
+        .stat-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 4px;
+            padding-top: 24px;
+        }
+        
+        .stat-card-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Tab Filters */
+        .stat-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            overflow: hidden;
+            width: fit-content;
+        }
+        
+        .stat-tab {
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+            background: #fff;
+            border: none;
+            border-right: 1px solid #e5e5e5;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .stat-tab:last-child {
+            border-right: none;
+        }
+        
+        .stat-tab:hover {
+            background: #f5f5f5;
+        }
+        
+        .stat-tab.active {
+            background: #000;
+            color: #fff;
+        }
+        
+        /* Stacked Bar Chart */
+        .stacked-bar {
+            display: flex;
+            height: 48px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        
+        .bar-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .bar-segment.orange { background: #f7931e; }
+        .bar-segment.yellow { background: #fbb03b; }
+        .bar-segment.teal { background: #29abe2; }
+        .bar-segment.green { background: #39b54a; }
+        .bar-segment.purple { background: #9b59b6; }
+        .bar-segment.blue { background: #3498db; }
+        
+        .bar-legend {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        
+        .legend-item {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .legend-item.enterprise { width: 45%; }
+        .legend-item.mid-market { width: 28%; }
+        .legend-item.smb { width: 18%; }
+        .legend-item.other { width: 9%; }
+        
+        .legend-item strong {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        /* Large Stats */
+        .stat-large-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: #000;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+        
+        .stat-change {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #000;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-change .arrow {
+            font-weight: 400;
+        }
+        
+        .stat-change-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Small Stat Cards */
+        .stat-card-small .stat-card-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .stat-card-small .stat-change {
+            font-size: 42px;
+            margin-bottom: 4px;
+        }
+        
+        .stat-card-small.stat-card-flex {
+            min-height: 120px;
+            height: 120px;
+        }
+        
+        /* Blue Pill Button */
+        .stat-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid #0066cc;
+            border-radius: 50px;
+            color: #0066cc;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            margin-top: auto;
+            width: 100%;
+        }
+        
+        .stat-button:hover {
+            background: #0066cc;
+            color: #fff;
+        }
+        
+        .stat-button .arrow-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #0066cc;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.15s ease;
+        }
+        
+        .stat-button:hover .arrow-icon {
+            background: #fff;
+            color: #0066cc;
+        }
+        
+        /* Card with full height for flexbox */
+        .stat-card-flex {
+            display: flex;
+            flex-direction: column;
+            min-height: 240px;
+        }
+        
+        .stat-card-flex .stat-content {
+            flex: 1;
+            height: 80px;
+        }
+        
+        /* Data Table - IEA Style */
+        .iea-section {
+            background: unset;
+            border-radius: 0px;
+            padding: 0;
+            margin-bottom: 24px;
+            box-shadow: none;
+        }
+        
+        .iea-section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
+            margin-top: 24px;
+            margin-bottom: 24px;
+            padding-top: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .iea-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .iea-table th,
+        .iea-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        
+        .iea-table th:first-child,
+        .iea-table td:first-child {
+            padding-left: 0;
+        }
+        
+        .iea-table th:last-child,
+        .iea-table td:last-child {
+            padding-right: 0;
+        }
+        
+        .iea-table th {
+            font-weight: 600;
+            color: #666;
+            text-transform: none;
+            font-size: 12px;
+            letter-spacing: 0.03em;
+        }
+        
+        .iea-table td {
+            color: #333;
+        }
+        
+        .iea-table .number {
+            text-align: right;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+        
+        .iea-table .positive {
+            color: #059669;
+        }
+        
+        .iea-table .negative {
+            color: #dc2626;
+        }
+        
+        .iea-table tr:hover td {
+            background: #fafafa;
+        }
+        
+        /* Text Content */
+        .iea-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .iea-callout {
+            background: #e8f4fd;
+            border-left: 4px solid #0066cc;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+        
+        .iea-callout p {
+            font-size: 15px;
+            color: #1a365d;
+            margin: 0;
+        }
+        
+        .iea-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .iea-list li {
+            padding: 12px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 15px;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .iea-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: 600;
+        }
+        
+        .iea-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Related Reports */
+        .related-section {
+            margin-top: 48px;
+        }
+        
+        .related-section .section-header {
+            margin-bottom: 0px;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .related-card {
+            background: var(--color-paper-100);
+            border-radius: 0px;
+            padding: 24px;
+            box-shadow: none;
+            height: fit-content;
+            transition: all 0.15s ease;
+        }
+        
+        .related-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .related-card-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .related-card-type {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .related-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        .related-card-meta {
+            font-size: 13px;
+            color: #999;
+        }
+        
+        /* Footer adjustments */
+        .report-page .site-footer {
+            margin-top: 0;
+        }
+        
+        /* Clickable Numbers Feature */
+        .explainable-number {
+            cursor: pointer;
+            position: relative;
+            border-bottom: 2px dashed transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .explainable-number:hover {
+            opacity: 0.8;
+            border-bottom-color: rgba(0, 102, 204, 0.8);
+        }
+        
+        .explainable-number:hover::after {
+            content: "Click to explain";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a2e;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            animation: tooltipFadeIn 0.2s ease forwards;
+            animation-delay: 0.3s;
+        }
+        
+        .explainable-number:hover::before {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            border: 5px solid transparent;
+            border-top-color: #1a1a2e;
+            z-index: 100;
+            opacity: 0;
+            animation: tooltipFadeIn 0.2s ease forwards;
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes tooltipFadeIn {
+            to { opacity: 1; }
+        }
+        
+        .explainable-number.clicked {
+            background: rgba(0, 102, 204, 0.15);
+            border-bottom-color: #0066cc;
+        }
+        
+        /* Number explanation in chat */
+        .agent-number-explanation {
+            background: unset;
+            background-image: none;
+            border-radius: 12px;
+            padding: 0px;
+            margin-top: 8px;
+        }
+        
+        .agent-number-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .agent-number-badge {
+            background-color: var(--color-success);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+        
+        .agent-number-context {
+            font-size: 12px;
+            color: #666;
+            text-transform: none;
+            letter-spacing: 0.05em;
+        }
+        
+        .agent-number-title {
+            font-weight: 600;
+            color: #000;
+            font-size: 15px;
+        }
+        
+        .agent-number-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .agent-number-body ul {
+            margin: 12px 0;
+            padding-left: 0px;
+        }
+        
+        .agent-number-body li {
+            margin-bottom: 6px;
+        }
+        
+        .agent-number-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .comparison-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .comparison-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: none;
+            margin-bottom: 4px;
+        }
+        
+        .comparison-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .comparison-change {
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        
+        .comparison-change.positive { color: #059669; }
+        .comparison-change.negative { color: #dc2626; }
+        
+        /* Trend indicator in explanation */
+        .agent-number-trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .agent-number-trend.positive {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+        
+        .agent-number-trend.negative {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+        
+        .agent-number-trend .trend-arrow {
+            font-size: 14px;
+        }
+        
+        /* Line Charts Section */
+        .trends-section {
+            margin-bottom: 48px;
+        }
+        
+        .trends-section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .trend-chart-card {
+            background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+            border: none;
+            border-radius: 0;
+            padding: 24px;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+        
+        .trend-chart-card:hover {
+            cursor: pointer;
+        }
+        
+        .trend-chart-card:active {
+            background: linear-gradient(180deg, #f5f5f5 0%, #fafafa 100%);
+        }
+        
+        .trend-chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .trend-chart-title {
+            font-family: var(--font-body);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0.08em;
+            color: var(--color-ink-900);
+            margin-bottom: 4px;
+        }
+        
+        .trend-chart-subtitle {
+            font-size: 0.75rem;
+            color: var(--color-ink-400);
+        }
+        
+        .trend-chart-value {
+            text-align: right;
+        }
+        
+        .trend-chart-current {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-ink-900);
+        }
+        
+        .trend-chart-change {
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+        
+        .trend-chart-change.positive {
+            color: #059669;
+        }
+        
+        .trend-chart-change.negative {
+            color: #dc2626;
+        }
+        
+        .trend-chart-svg {
+            width: 100%;
+            height: 120px;
+            margin-bottom: 12px;
+        }
+        
+        .trend-line {
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .trend-line.primary {
+            stroke: #0066cc;
+        }
+        
+        .trend-line.success {
+            stroke: #059669;
+        }
+        
+        .trend-line.warning {
+            stroke: #f59e0b;
+        }
+        
+        .trend-line.purple {
+            stroke: #8b5cf6;
+        }
+        
+        .trend-area {
+            opacity: 0.1;
+        }
+        
+        .trend-area.primary {
+            fill: #0066cc;
+        }
+        
+        .trend-area.success {
+            fill: #059669;
+        }
+        
+        .trend-area.warning {
+            fill: #f59e0b;
+        }
+        
+        .trend-area.purple {
+            fill: #8b5cf6;
+        }
+        
+        .trend-dot {
+            display: none;
+        }
+        
+        .trend-dot.primary {
+            stroke: #0066cc;
+        }
+        
+        .trend-dot.success {
+            stroke: #059669;
+        }
+        
+        .trend-dot.warning {
+            stroke: #f59e0b;
+        }
+        
+        .trend-dot.purple {
+            stroke: #8b5cf6;
+        }
+        
+        .trend-chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #999;
+            text-transform: none;
+            letter-spacing: 0.03em;
+        }
+        
+        .trend-grid-line {
+            stroke: #f0f0f0;
+            stroke-width: 1;
+        }
+        
+        /* Chart hover effects */
+        .trend-dot {
+            cursor: pointer;
+            transition: r 0.15s ease;
+        }
+        
+        .trend-dot:hover {
+            r: 7;
+        }
+        
+        .trend-chart-tooltip {
+            position: absolute;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            z-index: 100;
+            white-space: nowrap;
+            transform: translate(-50%, -100%);
+            margin-top: -10px;
+        }
+        
+        .trend-chart-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #1a1a2e;
+        }
+        
+        .trend-chart-tooltip.visible {
+            opacity: 1;
+        }
+        
+        .trend-chart-card {
+            position: relative;
+        }
+        
+        /* Animated line drawing effect */
+        .trend-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 1.5s ease forwards;
+        }
+        
+        .trend-area {
+            opacity: 0;
+            animation: fadeInArea 0.5s ease forwards;
+            animation-delay: 1s;
+        }
+        
+        .trend-dot {
+            opacity: 0;
+            animation: fadeInDot 0.3s ease forwards;
+        }
+        
+        .trend-dot:nth-child(5) { animation-delay: 0.2s; }
+        .trend-dot:nth-child(6) { animation-delay: 0.4s; }
+        .trend-dot:nth-child(7) { animation-delay: 0.6s; }
+        .trend-dot:nth-child(8) { animation-delay: 0.8s; }
+        .trend-dot:nth-child(9) { animation-delay: 1.0s; }
+        .trend-dot:nth-child(10) { animation-delay: 1.2s; }
+        .trend-dot:nth-child(11) { animation-delay: 1.4s; }
+        .trend-dot:nth-child(12) { animation-delay: 1.6s; }
+        
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        @keyframes fadeInArea {
+            to {
+                opacity: 0.1;
+            }
+        }
+        
+        @keyframes fadeInDot {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .trends-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-grid-large {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-grid-small {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid-small {
+                grid-template-columns: 1fr;
+            }
+            
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .stat-large-value,
+            .stat-change {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body class="report-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Breaking News Ticker (if active) -->
+    <aside class="breaking-ticker" role="alert" aria-live="polite">
+        <div class="container">
+            <span class="ticker-label">NEW</span>
+            <div class="ticker-content">
+                <a href="#">Q4 earnings exceed analyst expectations by 12% — Full report available</a>
+            </div>
+            <button class="ticker-close" aria-label="Dismiss">&times;</button>
+        </div>
+    </aside>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <!-- Masthead -->
+        <div class="masthead">
+            <div class="container">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <a href="/" class="logo">
+                    <span class="logo-text">DataBao</span>
+                </a>
+                
+                <div class="masthead-actions">
+                    <button class="btn-search" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="#" class="user-avatar" aria-label="User profile">
+                        <span class="avatar-initials">JD</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="primary-nav" aria-label="Primary navigation">
+            <div class="container">
+                <ul class="nav-list" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="/sections/breaking.html" role="menuitem">
+                            Breaking Reports
+                            <span class="nav-indicator live"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="/sections/research.html" role="menuitem">
+                            Data & Research
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="/sections/company-news.html" role="menuitem">
+                            Company News
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="/sections/events.html" role="menuitem">
+                            Events
+                        </a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="/sections/rnd.html" role="menuitem">
+                            R&amp;D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Platform Status Bar -->
+    <div class="market-snapshot">
+        <div class="container">
+            <div class="snapshot-content">
+                <a href="/sections/dashboards.html?tab=users" class="snapshot-item">
+                    <span class="snapshot-name">Active Users</span>
+                    <span class="snapshot-value">24,828</span>
+                    <span class="snapshot-change positive">+8.32%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=revenue" class="snapshot-item">
+                    <span class="snapshot-name">Q4 Revenue</span>
+                    <span class="snapshot-value">$287M</span>
+                    <span class="snapshot-change positive">+34%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=data" class="snapshot-item">
+                    <span class="snapshot-name">Data Syncs</span>
+                    <span class="snapshot-value">892K</span>
+                    <span class="snapshot-change positive">+5.22%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=uptime" class="snapshot-item">
+                    <span class="snapshot-name">Uptime</span>
+                    <span class="snapshot-value">99.99%</span>
+                    <span class="snapshot-change positive">+0.01%</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+                <ol class="breadcrumbs-list">
+                    <li class="breadcrumbs-item">
+                        <a href="/">Home</a>
+                        <span class="breadcrumbs-separator">›</span>
+                    </li>
+                    <li class="breadcrumbs-item">
+                        <a href="/sections/research.html">Data & Research</a>
+                        <span class="breadcrumbs-separator">›</span>
+                    </li>
+                    <li class="breadcrumbs-item">
+                        <span class="breadcrumbs-current">Q4 2024 Quarterly Report</span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Page Title -->
+            <div class="report-title-section">
+                <h1>Q4 2024 Quarterly Report</h1>
+                <div class="report-meta-bar">
+                    <div class="report-authors">
+                        <strong>Authors:</strong>
+                        <div class="author-avatars">
+                            <a href="#author-jchen" class="author-avatar" title="James Chen"><img src="../images/users/user1.jpg" alt="James Chen"></a>
+                            <a href="#author-mlee" class="author-avatar" title="Maria Lee"><img src="../images/users/user2.jpg" alt="Maria Lee"></a>
+                            <a href="#author-skumar" class="author-avatar" title="Sarah Kumar"><img src="../images/users/user3.jpg" alt="Sarah Kumar"></a>
+                        </div>
+                        <div class="author-names">
+                            <a href="#author-jchen">J. Chen</a><span>,</span>
+                            <a href="#author-mlee">M. Lee</a><span>,</span>
+                            <a href="#author-skumar">S. Kumar</a>
+                        </div>
+                    </div>
+                    <div class="report-meta-right">
+                        <span><strong>Published:</strong> December 26, 2024</span>
+                        <span><strong>Period:</strong> Q4 FY2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid - Large Cards -->
+            <div class="dashboard-grid-large">
+                <!-- Revenue Mix Card -->
+                <div class="stat-card stat-card-flex">
+                    <div class="stat-card-header">
+                        <div class="stat-card-title">Revenue Mix</div>
+                        <div class="stat-card-subtitle">Total revenue by segment, Q4 2024</div>
+                    </div>
+                    
+                    <div class="stat-tabs">
+                        <button class="stat-tab active">Total Revenue</button>
+                        <button class="stat-tab">Subscription</button>
+                        <button class="stat-tab">Services</button>
+                        <button class="stat-tab">Licensing</button>
+                    </div>
+                    
+                    <div class="stat-content">
+                        <div class="stat-row" style="display: flex; align-items: baseline; gap: 16px;">
+                            <div class="stat-large-value">$287M</div>
+                            <div class="stat-change"><span class="arrow">↑</span>34%</div>
+                        </div>
+                        
+                        <div class="stacked-bar">
+                            <div class="bar-segment orange" style="width: 45%"></div>
+                            <div class="bar-segment teal" style="width: 28%"></div>
+                            <div class="bar-segment green" style="width: 18%"></div>
+                            <div class="bar-segment purple" style="width: 9%"></div>
+                        </div>
+                        
+                        <div class="bar-legend">
+                            <div class="legend-item enterprise">
+                                <strong>Enterprise</strong>
+                                <span>45.2%</span>
+                            </div>
+                            <div class="legend-item mid-market">
+                                <strong>Mid-Market</strong>
+                                <span>28.1%</span>
+                            </div>
+                            <div class="legend-item smb">
+                                <strong>SMB</strong>
+                                <span>17.9%</span>
+                            </div>
+                            <div class="legend-item other">
+                                <strong>Other</strong>
+                                <span>8.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dashboard Grid - Small Cards -->
+            <div class="dashboard-grid-small">
+                <a href="#revenue" class="stat-card stat-card-small stat-card-flex">
+                    <div class="stat-card-title">Revenue Growth</div>
+                    <div class="stat-content">
+                        <div class="stat-change"><span class="arrow">↑</span>34%</div>
+                        <div class="stat-change-label">YoY growth, Q4 2024</div>
+                    </div>
+                </a>
+                
+                <a href="#retention" class="stat-card stat-card-small stat-card-flex">
+                    <div class="stat-card-title">Net Revenue Retention</div>
+                    <div class="stat-content">
+                        <div class="stat-change"><span class="arrow">↑</span>128%</div>
+                        <div class="stat-change-label">enterprise segment, Q4 2024</div>
+                    </div>
+                </a>
+                
+                <a href="#margins" class="stat-card stat-card-small stat-card-flex">
+                    <div class="stat-card-title">Gross Margin</div>
+                    <div class="stat-content">
+                        <div class="stat-large-value">78%</div>
+                        <div class="stat-change-label">operating efficiency, Q4 2024</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="dashboard-grid-small">
+                <a href="#customers" class="stat-card stat-card-small stat-card-flex">
+                    <div class="stat-card-title">Total Customers</div>
+                    <div class="stat-content">
+                        <div class="stat-large-value">2,847</div>
+                        <div class="stat-change-label">active accounts, Q4 2024</div>
+                    </div>
+                </a>
+                
+                <a href="#enterprise" class="stat-card stat-card-small stat-card-flex">
+                    <div class="stat-card-title">Enterprise Customers</div>
+                    <div class="stat-content">
+                        <div class="stat-change"><span class="arrow">↑</span>18%</div>
+                        <div class="stat-change-label">YoY growth, $100K+ contracts</div>
+                    </div>
+                </a>
+                
+                <a href="#cashflow" class="stat-card stat-card-small stat-card-flex">
+                    <div class="stat-card-title">Free Cash Flow</div>
+                    <div class="stat-content">
+                        <div class="stat-change"><span class="arrow">↑</span>133%</div>
+                        <div class="stat-change-label">YoY growth, Q4 2024</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Executive Summary Section -->
+            <section class="iea-section" id="executive-summary">
+                <h2 class="iea-section-title">Executive Summary</h2>
+                <p class="iea-text">DataBao delivered exceptional results in Q4 2024, with record quarterly revenue of $287 million representing 34% year-over-year growth. This performance exceeded analyst expectations by 12% and caps off a transformative year for the company.</p>
+                
+                <div class="iea-callout">
+                    <p><strong>Key Takeaway:</strong> The combination of strong enterprise adoption, successful geographic expansion, and the launch of Platform 3.0 positions DataBao for continued growth in 2025.</p>
+                </div>
+                
+                <p class="iea-text">The quarter was marked by several significant milestones, including crossing the $1 billion ARR threshold, opening our Singapore regional headquarters, and launching the most significant platform update in company history.</p>
+            </section>
+
+            <!-- Trend Charts Section -->
+            <section class="trends-section">
+                <h2 class="trends-section-title">Performance Trends</h2>
+                
+                <div class="trends-grid">
+                    <!-- Revenue Trend -->
+                    <div class="trend-chart-card">
+                        <div class="trend-chart-header">
+                            <div>
+                                <div class="trend-chart-title">Quarterly Revenue</div>
+                                <div class="trend-chart-subtitle">Last 8 quarters (in millions)</div>
+                            </div>
+                            <div class="trend-chart-value">
+                                <div class="trend-chart-current">$287M</div>
+                                <div class="trend-chart-change positive">
+                                    <span>↑</span> 34% YoY
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="trend-chart-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                            <!-- Grid lines -->
+                            <line class="trend-grid-line" x1="0" y1="30" x2="400" y2="30"/>
+                            <line class="trend-grid-line" x1="0" y1="60" x2="400" y2="60"/>
+                            <line class="trend-grid-line" x1="0" y1="90" x2="400" y2="90"/>
+                            <!-- Area fill -->
+                            <path class="trend-area primary" d="M0,95 L57,88 L114,82 L171,75 L228,65 L285,55 L342,42 L400,25 L400,120 L0,120 Z"/>
+                            <!-- Line -->
+                            <path class="trend-line primary" d="M0,95 L57,88 L114,82 L171,75 L228,65 L285,55 L342,42 L400,25"/>
+                            <!-- Data points -->
+                            <circle class="trend-dot primary" cx="0" cy="95" r="4"/>
+                            <circle class="trend-dot primary" cx="57" cy="88" r="4"/>
+                            <circle class="trend-dot primary" cx="114" cy="82" r="4"/>
+                            <circle class="trend-dot primary" cx="171" cy="75" r="4"/>
+                            <circle class="trend-dot primary" cx="228" cy="65" r="4"/>
+                            <circle class="trend-dot primary" cx="285" cy="55" r="4"/>
+                            <circle class="trend-dot primary" cx="342" cy="42" r="4"/>
+                            <circle class="trend-dot primary" cx="400" cy="25" r="5"/>
+                        </svg>
+                        <div class="trend-chart-labels">
+                            <span>Q1 '23</span>
+                            <span>Q2 '23</span>
+                            <span>Q3 '23</span>
+                            <span>Q4 '23</span>
+                            <span>Q1 '24</span>
+                            <span>Q2 '24</span>
+                            <span>Q3 '24</span>
+                            <span>Q4 '24</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Growth Trend -->
+                    <div class="trend-chart-card">
+                        <div class="trend-chart-header">
+                            <div>
+                                <div class="trend-chart-title">Total Customers</div>
+                                <div class="trend-chart-subtitle">Last 8 quarters</div>
+                            </div>
+                            <div class="trend-chart-value">
+                                <div class="trend-chart-current">2,847</div>
+                                <div class="trend-chart-change positive">
+                                    <span>↑</span> 32% YoY
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="trend-chart-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                            <!-- Grid lines -->
+                            <line class="trend-grid-line" x1="0" y1="30" x2="400" y2="30"/>
+                            <line class="trend-grid-line" x1="0" y1="60" x2="400" y2="60"/>
+                            <line class="trend-grid-line" x1="0" y1="90" x2="400" y2="90"/>
+                            <!-- Area fill -->
+                            <path class="trend-area success" d="M0,100 L57,92 L114,85 L171,78 L228,68 L285,55 L342,40 L400,20 L400,120 L0,120 Z"/>
+                            <!-- Line -->
+                            <path class="trend-line success" d="M0,100 L57,92 L114,85 L171,78 L228,68 L285,55 L342,40 L400,20"/>
+                            <!-- Data points -->
+                            <circle class="trend-dot success" cx="0" cy="100" r="4"/>
+                            <circle class="trend-dot success" cx="57" cy="92" r="4"/>
+                            <circle class="trend-dot success" cx="114" cy="85" r="4"/>
+                            <circle class="trend-dot success" cx="171" cy="78" r="4"/>
+                            <circle class="trend-dot success" cx="228" cy="68" r="4"/>
+                            <circle class="trend-dot success" cx="285" cy="55" r="4"/>
+                            <circle class="trend-dot success" cx="342" cy="40" r="4"/>
+                            <circle class="trend-dot success" cx="400" cy="20" r="5"/>
+                        </svg>
+                        <div class="trend-chart-labels">
+                            <span>Q1 '23</span>
+                            <span>Q2 '23</span>
+                            <span>Q3 '23</span>
+                            <span>Q4 '23</span>
+                            <span>Q1 '24</span>
+                            <span>Q2 '24</span>
+                            <span>Q3 '24</span>
+                            <span>Q4 '24</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Gross Margin Trend -->
+                    <div class="trend-chart-card">
+                        <div class="trend-chart-header">
+                            <div>
+                                <div class="trend-chart-title">Gross Margin</div>
+                                <div class="trend-chart-subtitle">Last 8 quarters (%)</div>
+                            </div>
+                            <div class="trend-chart-value">
+                                <div class="trend-chart-current">78%</div>
+                                <div class="trend-chart-change positive">
+                                    <span>↑</span> +2pts YoY
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="trend-chart-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                            <!-- Grid lines -->
+                            <line class="trend-grid-line" x1="0" y1="30" x2="400" y2="30"/>
+                            <line class="trend-grid-line" x1="0" y1="60" x2="400" y2="60"/>
+                            <line class="trend-grid-line" x1="0" y1="90" x2="400" y2="90"/>
+                            <!-- Area fill -->
+                            <path class="trend-area warning" d="M0,55 L57,52 L114,50 L171,48 L228,45 L285,42 L342,38 L400,32 L400,120 L0,120 Z"/>
+                            <!-- Line -->
+                            <path class="trend-line warning" d="M0,55 L57,52 L114,50 L171,48 L228,45 L285,42 L342,38 L400,32"/>
+                            <!-- Data points -->
+                            <circle class="trend-dot warning" cx="0" cy="55" r="4"/>
+                            <circle class="trend-dot warning" cx="57" cy="52" r="4"/>
+                            <circle class="trend-dot warning" cx="114" cy="50" r="4"/>
+                            <circle class="trend-dot warning" cx="171" cy="48" r="4"/>
+                            <circle class="trend-dot warning" cx="228" cy="45" r="4"/>
+                            <circle class="trend-dot warning" cx="285" cy="42" r="4"/>
+                            <circle class="trend-dot warning" cx="342" cy="38" r="4"/>
+                            <circle class="trend-dot warning" cx="400" cy="32" r="5"/>
+                        </svg>
+                        <div class="trend-chart-labels">
+                            <span>Q1 '23</span>
+                            <span>Q2 '23</span>
+                            <span>Q3 '23</span>
+                            <span>Q4 '23</span>
+                            <span>Q1 '24</span>
+                            <span>Q2 '24</span>
+                            <span>Q3 '24</span>
+                            <span>Q4 '24</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Net Revenue Retention Trend -->
+                    <div class="trend-chart-card">
+                        <div class="trend-chart-header">
+                            <div>
+                                <div class="trend-chart-title">Net Revenue Retention</div>
+                                <div class="trend-chart-subtitle">Last 8 quarters (%)</div>
+                            </div>
+                            <div class="trend-chart-value">
+                                <div class="trend-chart-current">128%</div>
+                                <div class="trend-chart-change positive">
+                                    <span>↑</span> +10pts YoY
+                                </div>
+                            </div>
+                        </div>
+                        <svg class="trend-chart-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                            <!-- Grid lines -->
+                            <line class="trend-grid-line" x1="0" y1="30" x2="400" y2="30"/>
+                            <line class="trend-grid-line" x1="0" y1="60" x2="400" y2="60"/>
+                            <line class="trend-grid-line" x1="0" y1="90" x2="400" y2="90"/>
+                            <!-- Area fill -->
+                            <path class="trend-area purple" d="M0,75 L57,70 L114,68 L171,62 L228,55 L285,45 L342,35 L400,22 L400,120 L0,120 Z"/>
+                            <!-- Line -->
+                            <path class="trend-line purple" d="M0,75 L57,70 L114,68 L171,62 L228,55 L285,45 L342,35 L400,22"/>
+                            <!-- Data points -->
+                            <circle class="trend-dot purple" cx="0" cy="75" r="4"/>
+                            <circle class="trend-dot purple" cx="57" cy="70" r="4"/>
+                            <circle class="trend-dot purple" cx="114" cy="68" r="4"/>
+                            <circle class="trend-dot purple" cx="171" cy="62" r="4"/>
+                            <circle class="trend-dot purple" cx="228" cy="55" r="4"/>
+                            <circle class="trend-dot purple" cx="285" cy="45" r="4"/>
+                            <circle class="trend-dot purple" cx="342" cy="35" r="4"/>
+                            <circle class="trend-dot purple" cx="400" cy="22" r="5"/>
+                        </svg>
+                        <div class="trend-chart-labels">
+                            <span>Q1 '23</span>
+                            <span>Q2 '23</span>
+                            <span>Q3 '23</span>
+                            <span>Q4 '23</span>
+                            <span>Q1 '24</span>
+                            <span>Q2 '24</span>
+                            <span>Q3 '24</span>
+                            <span>Q4 '24</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Highlights Section -->
+            <section class="iea-section" id="financial-highlights">
+                <h2 class="iea-section-title">Financial Highlights</h2>
+                
+                <table class="iea-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th class="number">Q4 2024</th>
+                            <th class="number">Q4 2023</th>
+                            <th class="number">Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Revenue</td>
+                            <td class="number">$287M</td>
+                            <td class="number">$214M</td>
+                            <td class="number positive">+34%</td>
+                        </tr>
+                        <tr>
+                            <td>Gross Profit</td>
+                            <td class="number">$224M</td>
+                            <td class="number">$163M</td>
+                            <td class="number positive">+37%</td>
+                        </tr>
+                        <tr>
+                            <td>Gross Margin</td>
+                            <td class="number">78%</td>
+                            <td class="number">76%</td>
+                            <td class="number positive">+200bps</td>
+                        </tr>
+                        <tr>
+                            <td>Operating Expenses</td>
+                            <td class="number">$198M</td>
+                            <td class="number">$172M</td>
+                            <td class="number negative">+15%</td>
+                        </tr>
+                        <tr>
+                            <td>Free Cash Flow</td>
+                            <td class="number">$42M</td>
+                            <td class="number">$18M</td>
+                            <td class="number positive">+133%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Customer Metrics Section -->
+            <section class="iea-section" id="customer-metrics">
+                <h2 class="iea-section-title">Customer Metrics</h2>
+                <p class="iea-text">The enterprise segment continued to drive growth, with customers on contracts exceeding $100K annually now representing 72% of total revenue, up from 64% in the prior year.</p>
+                
+                <table class="iea-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th class="number">Q4 2024</th>
+                            <th class="number">Q4 2023</th>
+                            <th class="number">Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Customers</td>
+                            <td class="number">2,847</td>
+                            <td class="number">2,156</td>
+                            <td class="number positive">+32%</td>
+                        </tr>
+                        <tr>
+                            <td>Enterprise Customers ($100K+)</td>
+                            <td class="number">312</td>
+                            <td class="number">265</td>
+                            <td class="number positive">+18%</td>
+                        </tr>
+                        <tr>
+                            <td>Net Revenue Retention</td>
+                            <td class="number">128%</td>
+                            <td class="number">118%</td>
+                            <td class="number positive">+10pts</td>
+                        </tr>
+                        <tr>
+                            <td>Gross Revenue Retention</td>
+                            <td class="number">95%</td>
+                            <td class="number">93%</td>
+                            <td class="number positive">+2pts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Outlook Section -->
+            <section class="iea-section" id="outlook">
+                <h2 class="iea-section-title">Outlook & Guidance</h2>
+                <p class="iea-text">Based on our strong performance and market position, we are providing the following guidance:</p>
+                
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; margin: 24px 0 16px; color: #000;">Q1 2025 Guidance</h3>
+                <ul class="iea-list">
+                    <li>Revenue: $295M - $302M (28-31% YoY growth)</li>
+                    <li>Non-GAAP Operating Margin: 8-10%</li>
+                </ul>
+                
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; margin: 24px 0 16px; color: #000;">Full Year 2025 Guidance</h3>
+                <ul class="iea-list">
+                    <li>Revenue: $1.25B - $1.30B (25-30% YoY growth)</li>
+                    <li>Non-GAAP Operating Margin: 10-12%</li>
+                    <li>Free Cash Flow: $150M+</li>
+                </ul>
+                
+                <div class="iea-callout">
+                    <p><strong>Capital Allocation:</strong> The Board has approved a $500M stock buyback program, reflecting confidence in our long-term trajectory and commitment to shareholder returns.</p>
+                </div>
+            </section>
+
+            <!-- Related Reports -->
+            <section class="related-section">
+                <header class="section-header">
+                    <h2 class="section-title">Related Reports</h2>
+                </header>
+
+                <div class="related-grid">
+                    <a href="#" class="related-card">
+                        <div class="related-card-type">Quarterly Report</div>
+                        <div class="related-card-title">Q3 2024 Results</div>
+                        <div class="related-card-meta">38 pages</div>
+                    </a>
+                    <a href="#" class="related-card">
+                        <div class="related-card-type">Annual Report</div>
+                        <div class="related-card-title">FY2024 Annual Report</div>
+                        <div class="related-card-meta">87 pages</div>
+                    </a>
+                    <a href="#" class="related-card">
+                        <div class="related-card-type">Benchmark</div>
+                        <div class="related-card-title">Q4 Performance Benchmarks</div>
+                        <div class="related-card-meta">24 pages</div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <span class="footer-logo">DataBao</span>
+                    <p class="footer-tagline">News, Analysis & Research</p>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2024 DataBao Inc. All rights reserved.</p>
+                    <nav class="legal-links">
+                        <a href="/pages/privacy.html">Privacy Policy</a>
+                        <a href="/pages/terms.html">Terms of Use</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Agent Chat Button -->
+    <button class="agent-trigger" id="agent-trigger" aria-label="Open AI assistant">
+        <svg class="agent-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+        </svg>
+        <span class="agent-trigger-text">Ask agent about anything...</span>
+        <span class="agent-trigger-arrow disabled">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </span>
+    </button>
+
+    <!-- AI Agent Expanded Chat -->
+    <div class="agent-expanded" id="agent-expanded">
+        <!-- Header -->
+        <div class="agent-expanded-header">
+            <span class="agent-expanded-title">AI Agent</span>
+            <div class="agent-expanded-header-actions">
+                <button class="agent-expanded-expand" aria-label="Pin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="17" x2="12" y2="22"></line>
+                        <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+                    </svg>
+                </button>
+                <button class="agent-expanded-close" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Chat History Tabs -->
+        <div class="agent-chat-tabs" id="agent-chat-tabs">
+            <div class="agent-chat-tabs-scroll">
+                <div class="agent-chat-tab active" data-tab-id="1">
+                    <span class="agent-chat-tab-title">Report Analysis</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="agent-chat-tab" data-tab-id="2">
+                    <span class="agent-chat-tab-title">Key Findings</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <button class="agent-chat-tab-new" id="agent-new-chat" aria-label="New chat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="agent-suggestions" id="agent-suggestions">
+            <div class="agent-suggestions-grid">
+                <button class="agent-suggestion" data-prompt="Summarize the key findings from this report">
+                    <span class="agent-suggestion-text">Summarize key findings</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What are the revenue highlights?">
+                    <span class="agent-suggestion-text">Revenue highlights</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="Compare Q4 to previous quarters">
+                    <span class="agent-suggestion-text">Compare to previous quarters</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What's the outlook for next quarter?">
+                    <span class="agent-suggestion-text">Next quarter outlook</span>
+                </button>
+            </div>
+        </div>
+        <div class="agent-expanded-chat" id="agent-expanded-chat"></div>
+        <div class="agent-expanded-inner">
+            <svg class="agent-expanded-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+            </svg>
+            <textarea class="agent-expanded-input" id="agent-expanded-input" placeholder="What do you want the agent to do?" rows="1"></textarea>
+            <div class="agent-expanded-actions">
+                <button class="agent-expanded-send" id="agent-expanded-send" aria-label="Send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // ============================================
+        // CLICKABLE NUMBERS - AI EXPLANATION FEATURE
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initExplainableNumbers();
+            initTrendChartTooltips();
+        });
+        
+        // ============================================
+        // TREND CHART TOOLTIPS
+        // ============================================
+        
+        function initTrendChartTooltips() {
+            // Chart data for tooltips
+            const chartData = {
+                revenue: ['$156M', '$168M', '$182M', '$214M', '$228M', '$241M', '$268M', '$287M'],
+                customers: ['1,650', '1,780', '1,920', '2,156', '2,340', '2,520', '2,680', '2,847'],
+                margin: ['72%', '73%', '74%', '76%', '76%', '77%', '77%', '78%'],
+                retention: ['108%', '110%', '112%', '118%', '120%', '123%', '125%', '128%']
+            };
+            
+            const quarters = ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'];
+            
+            const chartCards = document.querySelectorAll('.trend-chart-card');
+            
+            // Add click handler to each card for full card click explanation
+            chartCards.forEach((card, cardIndex) => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on a dot (dots have their own handler)
+                    if (e.target.classList.contains('trend-dot')) return;
+                    
+                    const title = card.querySelector('.trend-chart-title')?.textContent || 'Metric';
+                    const currentValue = card.querySelector('.trend-chart-current')?.textContent || '';
+                    const change = card.querySelector('.trend-chart-change')?.textContent?.trim() || '';
+                    const subtitle = card.querySelector('.trend-chart-subtitle')?.textContent || '';
+                    
+                    explainTrendCard(title, currentValue, change, subtitle, cardIndex);
+                });
+            });
+            
+            chartCards.forEach((card, cardIndex) => {
+                // Create tooltip element
+                const tooltip = document.createElement('div');
+                tooltip.className = 'trend-chart-tooltip';
+                card.appendChild(tooltip);
+                
+                // Get the data key based on card index
+                const dataKeys = ['revenue', 'customers', 'margin', 'retention'];
+                const dataKey = dataKeys[cardIndex] || 'revenue';
+                const values = chartData[dataKey];
+                
+                // Add event listeners to each dot
+                const dots = card.querySelectorAll('.trend-dot');
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('mouseenter', (e) => {
+                        const value = values[index] || '';
+                        const quarter = quarters[index] || '';
+                        tooltip.innerHTML = `<strong>${value}</strong><br>${quarter}`;
+                        
+                        // Position tooltip
+                        const rect = dot.getBoundingClientRect();
+                        const cardRect = card.getBoundingClientRect();
+                        tooltip.style.left = (rect.left - cardRect.left + rect.width / 2) + 'px';
+                        tooltip.style.top = (rect.top - cardRect.top) + 'px';
+                        tooltip.classList.add('visible');
+                    });
+                    
+                    dot.addEventListener('mouseleave', () => {
+                        tooltip.classList.remove('visible');
+                    });
+                    
+                    // Make dots clickable to explain in chat
+                    dot.addEventListener('click', () => {
+                        const value = values[index] || '';
+                        const quarter = quarters[index] || '';
+                        const title = card.querySelector('.trend-chart-title')?.textContent || 'Metric';
+                        explainChartDataPoint(value, quarter, title);
+                    });
+                });
+            });
+        }
+        
+        function explainChartDataPoint(value, quarter, metricName) {
+            const trigger = document.getElementById('agent-trigger');
+            const expanded = document.getElementById('agent-expanded');
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            const suggestions = document.getElementById('agent-suggestions');
+            const backdrop = document.getElementById('agent-backdrop');
+            
+            if (!expanded || !expandedChat) return;
+            
+            // Clear existing chat messages to start fresh
+            expandedChat.innerHTML = '';
+            
+            // Open the chat panel
+            if (trigger) trigger.classList.add('hidden');
+            expanded.classList.add('active');
+            if (backdrop) backdrop.classList.add('active');
+            
+            // Hide suggestions and show chat
+            if (suggestions) suggestions.classList.add('hidden');
+            expandedChat.classList.add('has-messages');
+            
+            // Add user message
+            const userMessage = `Explain ${metricName} in ${quarter}: ${value}`;
+            addExplainMessage(userMessage, true);
+            
+            // Generate response
+            showChartPointExplanation(value, quarter, metricName);
+        }
+        
+        function showChartPointExplanation(value, quarter, metricName) {
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            if (!expandedChat) return;
+            
+            const aiIconPath = 'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z';
+            
+            // Add typing indicator
+            const typingHTML = `
+                <div class="agent-chat-message agent-chat-typing-container">
+                    <div class="agent-chat-message-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="${aiIconPath}"/>
+                        </svg>
+                    </div>
+                    <div class="agent-chat-message-content">
+                        <div class="agent-chat-typing">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            expandedChat.insertAdjacentHTML('beforeend', typingHTML);
+            expandedChat.scrollTop = expandedChat.scrollHeight;
+            
+            setTimeout(() => {
+                const typing = expandedChat.querySelector('.agent-chat-typing-container');
+                if (typing) typing.remove();
+                
+                const isQ4_2024 = quarter === 'Q4 2024';
+                const comparison = isQ4_2024 ? 'This is the most recent data point showing record performance.' : 
+                    `This was the ${metricName.toLowerCase()} recorded during ${quarter}.`;
+                
+                const responseHTML = `
+                    <div class="agent-chat-message">
+                        <div class="agent-chat-message-avatar">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="${aiIconPath}"/>
+                            </svg>
+                        </div>
+                        <div class="agent-chat-message-content">
+                            <div class="agent-number-explanation">
+                                <div class="agent-number-header">
+                                    <span class="agent-number-badge">${value}</span>
+                                    <div>
+                                        <div class="agent-number-title">${metricName}</div>
+                                        <div class="agent-number-context">${quarter}</div>
+                                    </div>
+                                </div>
+                                <div class="agent-number-body">
+                                    <p>${comparison}</p>
+                                    <ul>
+                                        <li>Part of DataBao's quarterly performance tracking</li>
+                                        <li>Click other data points to compare across quarters</li>
+                                        <li>The trend shows consistent growth trajectory</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                expandedChat.insertAdjacentHTML('beforeend', responseHTML);
+                expandedChat.scrollTop = expandedChat.scrollHeight;
+            }, 1000);
+        }
+        
+        // Handle click on entire trend chart card
+        function explainTrendCard(title, currentValue, change, subtitle, cardIndex) {
+            const trigger = document.getElementById('agent-trigger');
+            const expanded = document.getElementById('agent-expanded');
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            const suggestions = document.getElementById('agent-suggestions');
+            const backdrop = document.getElementById('agent-backdrop');
+            
+            if (!expanded || !expandedChat) return;
+            
+            // Clear existing chat messages to start fresh
+            expandedChat.innerHTML = '';
+            
+            // Open the chat panel
+            if (trigger) trigger.classList.add('hidden');
+            expanded.classList.add('active');
+            if (backdrop) backdrop.classList.add('active');
+            
+            // Hide suggestions and show chat
+            if (suggestions) suggestions.classList.add('hidden');
+            expandedChat.classList.add('has-messages');
+            
+            // Add user message
+            const userMessage = `Explain the ${title} trend`;
+            addExplainMessage(userMessage, true);
+            
+            // Generate and show detailed explanation
+            showTrendCardExplanation(title, currentValue, change, subtitle, cardIndex);
+        }
+        
+        function showTrendCardExplanation(title, currentValue, change, subtitle, cardIndex) {
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            if (!expandedChat) return;
+            
+            const aiIconPath = 'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z';
+            
+            // Add typing indicator
+            const typingHTML = `
+                <div class="agent-chat-message agent-chat-typing-container">
+                    <div class="agent-chat-message-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="${aiIconPath}"/>
+                        </svg>
+                    </div>
+                    <div class="agent-chat-message-content">
+                        <div class="agent-chat-typing">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            expandedChat.insertAdjacentHTML('beforeend', typingHTML);
+            expandedChat.scrollTop = expandedChat.scrollHeight;
+            
+            // Card-specific explanations
+            const cardExplanations = [
+                {
+                    // Quarterly Revenue
+                    summary: 'Quarterly revenue has shown consistent growth over the past 8 quarters, reaching a record $287M in Q4 2024.',
+                    details: [
+                        'Revenue grew from $156M in Q1 2023 to $287M in Q4 2024',
+                        'Year-over-year growth rate of 34% exceeds industry average',
+                        'Enterprise segment contributes 45% of total revenue',
+                        'Platform 3.0 launch accelerated Q4 growth',
+                        'APAC expansion added significant new revenue streams'
+                    ],
+                    insight: 'The consistent upward trajectory indicates strong product-market fit and successful go-to-market execution.'
+                },
+                {
+                    // Total Customers
+                    summary: 'Customer base expanded steadily, growing from 1,650 to 2,847 customers over 8 quarters.',
+                    details: [
+                        'Net new customer additions averaged 150 per quarter',
+                        '32% year-over-year customer growth in Q4',
+                        'Enterprise customer count ($100K+) grew 18%',
+                        'Customer acquisition cost decreased by 12%',
+                        'Strong word-of-mouth driving organic growth'
+                    ],
+                    insight: 'The accelerating customer growth, particularly in enterprise, signals strong demand and market expansion opportunities.'
+                },
+                {
+                    // Gross Margin
+                    summary: 'Gross margin improved steadily from 72% to 78%, demonstrating operational efficiency gains.',
+                    details: [
+                        'Margin expansion of 600 basis points over 2 years',
+                        'Infrastructure optimization reduced hosting costs',
+                        'Automation reduced manual service delivery costs',
+                        'Higher-margin enterprise deals increasing in mix',
+                        'Platform efficiencies from 3.0 architecture'
+                    ],
+                    insight: 'Expanding margins while growing revenue indicates a scalable business model with strong unit economics.'
+                },
+                {
+                    // Net Revenue Retention
+                    summary: 'Net Revenue Retention reached 128%, indicating existing customers are spending significantly more over time.',
+                    details: [
+                        'NRR improved from 108% to 128% over 8 quarters',
+                        'Expansion revenue outpacing churn by 28 percentage points',
+                        'Average contract value increased through upsells',
+                        'Cross-sell of new products driving expansion',
+                        'Low churn rate of ~5% in enterprise segment'
+                    ],
+                    insight: 'NRR above 120% is world-class for SaaS, indicating strong customer satisfaction and product stickiness.'
+                }
+            ];
+            
+            const explanation = cardExplanations[cardIndex] || cardExplanations[0];
+            
+            setTimeout(() => {
+                const typing = expandedChat.querySelector('.agent-chat-typing-container');
+                if (typing) typing.remove();
+                
+                const responseHTML = `
+                    <div class="agent-chat-message">
+                        <div class="agent-chat-message-avatar">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="${aiIconPath}"/>
+                            </svg>
+                        </div>
+                        <div class="agent-chat-message-content">
+                            <div class="agent-number-explanation">
+                                <div class="agent-number-header">
+                                    <span class="agent-number-badge">${currentValue}</span>
+                                    <div>
+                                        <div class="agent-number-title">${title}</div>
+                                        <div class="agent-number-context">${subtitle} • ${change}</div>
+                                    </div>
+                                </div>
+                                <div class="agent-number-body">
+                                    <p><strong>${explanation.summary}</strong></p>
+                                    <ul>
+                                        ${explanation.details.map(d => `<li>${d}</li>`).join('')}
+                                    </ul>
+                                    <div class="iea-callout" style="margin-top: 16px; margin-bottom: 0;">
+                                        <p><strong>💡 Insight:</strong> ${explanation.insight}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                expandedChat.insertAdjacentHTML('beforeend', responseHTML);
+                expandedChat.scrollTop = expandedChat.scrollHeight;
+            }, 1200);
+        }
+        
+        // ============================================
+        // CLICKABLE NUMBERS - AI EXPLANATION FEATURE
+        // ============================================
+        
+        function initExplainableNumbers() {
+            // Target containers with important numbers
+            const containers = document.querySelectorAll(
+                '.stat-large-value, .stat-change, .iea-table td.number, .iea-text, .iea-list li, .iea-callout'
+            );
+            
+            containers.forEach(container => {
+                wrapNumbersInElement(container);
+            });
+            
+            // Add click handlers to all explainable numbers
+            document.querySelectorAll('.explainable-number').forEach(numEl => {
+                numEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleNumberClick(numEl);
+                });
+            });
+        }
+        
+        function wrapNumbersInElement(element) {
+            // Skip if already processed
+            if (element.querySelector('.explainable-number')) return;
+            
+            const html = element.innerHTML;
+            
+            // Regex to match numbers with various formats:
+            // - Currency: $287M, $1.02B, $500M
+            // - Percentages: 34%, 128%, +34%
+            // - Plain numbers: 2,847, 312, 24,828
+            // - Basis points: +200bps, +10pts
+            // - Ranges: $295M - $302M
+            const numberPattern = /(\$[\d,.]+[BMK]?|\+?-?\d+(?:,\d{3})*(?:\.\d+)?%?(?:bps|pts)?)/g;
+            
+            // Only wrap if not already in a link or button
+            if (element.tagName === 'A' || element.tagName === 'BUTTON') return;
+            
+            // Get metric name and context before replacing
+            const metricName = getMetricName(element) || '';
+            const context = getNumberContext(element, '');
+            
+            const newHtml = html.replace(numberPattern, (match) => {
+                // Skip very small numbers that aren't meaningful
+                const numericValue = parseFloat(match.replace(/[$,%BMKbps pts,]/g, ''));
+                if (isNaN(numericValue) || (numericValue < 2 && !match.includes('%') && !match.includes('$'))) {
+                    return match;
+                }
+                
+                return `<span class="explainable-number" data-value="${match}" data-context="${context}" data-metric="${escapeAttr(metricName)}">${match}</span>`;
+            });
+            
+            if (newHtml !== html) {
+                element.innerHTML = newHtml;
+                
+                // Now add trend data to each wrapped number
+                element.querySelectorAll('.explainable-number').forEach(numEl => {
+                    const trend = getTrendIndicator(numEl);
+                    if (trend) {
+                        numEl.dataset.trend = trend;
+                    }
+                });
+            }
+        }
+        
+        function escapeAttr(str) {
+            return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        
+        function getNumberContext(element, value) {
+            // Try to find context from surrounding text or parent elements
+            const parent = element.closest('.stat-card, .iea-section, tr, li, .iea-callout');
+            
+            if (!parent) return 'metric';
+            
+            // Check for specific metric types
+            const text = parent.textContent.toLowerCase();
+            
+            if (text.includes('revenue')) return 'revenue';
+            if (text.includes('retention')) return 'retention';
+            if (text.includes('margin')) return 'margin';
+            if (text.includes('customer')) return 'customers';
+            if (text.includes('cash flow')) return 'cashflow';
+            if (text.includes('growth')) return 'growth';
+            if (text.includes('expense') || text.includes('operating')) return 'expenses';
+            if (text.includes('profit')) return 'profit';
+            if (text.includes('guidance') || text.includes('outlook')) return 'guidance';
+            if (text.includes('buyback')) return 'buyback';
+            
+            return 'metric';
+        }
+        
+        function getMetricName(element) {
+            // Try to find the metric name from parent elements
+            const statCard = element.closest('.stat-card');
+            if (statCard) {
+                const title = statCard.querySelector('.stat-card-title');
+                if (title) return title.textContent.trim();
+            }
+            
+            // Check table row
+            const tableRow = element.closest('tr');
+            if (tableRow) {
+                const firstCell = tableRow.querySelector('td:first-child');
+                if (firstCell) return firstCell.textContent.trim();
+            }
+            
+            // Check section title
+            const section = element.closest('.iea-section');
+            if (section) {
+                const sectionTitle = section.querySelector('.iea-section-title');
+                if (sectionTitle) return sectionTitle.textContent.trim();
+            }
+            
+            // Check legend item
+            const legendItem = element.closest('.legend-item');
+            if (legendItem) {
+                const strong = legendItem.querySelector('strong');
+                if (strong) return strong.textContent.trim();
+            }
+            
+            return null;
+        }
+        
+        function getTrendIndicator(element) {
+            // Look for arrow indicators near the number
+            const parent = element.parentElement;
+            if (!parent) return null;
+            
+            const text = parent.textContent;
+            
+            // Check for arrow symbols
+            if (text.includes('↑') || text.includes('▲')) return 'up';
+            if (text.includes('↓') || text.includes('▼')) return 'down';
+            
+            // Check for +/- prefix in the value itself
+            const value = element.dataset.value;
+            if (value && value.startsWith('+')) return 'up';
+            if (value && value.startsWith('-')) return 'down';
+            
+            // Check sibling elements for arrows
+            const arrow = parent.querySelector('.arrow');
+            if (arrow) {
+                if (arrow.textContent.includes('↑')) return 'up';
+                if (arrow.textContent.includes('↓')) return 'down';
+            }
+            
+            // Check table cell class
+            const cell = element.closest('td');
+            if (cell) {
+                if (cell.classList.contains('positive')) return 'up';
+                if (cell.classList.contains('negative')) return 'down';
+            }
+            
+            return null;
+        }
+        
+        function handleNumberClick(numEl) {
+            const value = numEl.dataset.value;
+            const context = numEl.dataset.context;
+            const metric = numEl.dataset.metric || '';
+            const trend = numEl.dataset.trend || '';
+            
+            // Visual feedback
+            document.querySelectorAll('.explainable-number.clicked').forEach(el => {
+                el.classList.remove('clicked');
+            });
+            numEl.classList.add('clicked');
+            
+            // Open AI chat and send explanation request
+            openChatWithNumberExplanation(value, context, metric, trend);
+        }
+        
+        function openChatWithNumberExplanation(value, context, metric, trend) {
+            const trigger = document.getElementById('agent-trigger');
+            const expanded = document.getElementById('agent-expanded');
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            const suggestions = document.getElementById('agent-suggestions');
+            const backdrop = document.getElementById('agent-backdrop');
+            
+            if (!expanded || !expandedChat) return;
+            
+            // Open the chat panel
+            if (trigger) trigger.classList.add('hidden');
+            expanded.classList.add('active');
+            if (backdrop) backdrop.classList.add('active');
+            
+            // Hide suggestions and show chat
+            if (suggestions) suggestions.classList.add('hidden');
+            expandedChat.classList.add('has-messages');
+            
+            // Build user message with metric name and trend
+            const trendText = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '';
+            let userMessage = `Explain this number: ${trendText}${value}`;
+            if (metric) {
+                userMessage = `Explain "${metric}": ${trendText}${value}`;
+            }
+            addExplainMessage(userMessage, true);
+            
+            // Show typing indicator then response
+            showTypingThenExplain(value, context, metric, trend);
+        }
+        
+        function addExplainMessage(text, isUser = false) {
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            if (!expandedChat) return;
+            
+            const aiIconPath = 'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z';
+            
+            const messageHTML = isUser ? `
+                <div class="agent-chat-message user">
+                    <div class="agent-chat-message-content">${escapeHtmlLocal(text)}</div>
+                </div>
+            ` : text;
+            
+            expandedChat.insertAdjacentHTML('beforeend', messageHTML);
+            expandedChat.scrollTop = expandedChat.scrollHeight;
+        }
+        
+        function escapeHtmlLocal(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function showTypingThenExplain(value, context, metric, trend) {
+            const expandedChat = document.getElementById('agent-expanded-chat');
+            if (!expandedChat) return;
+            
+            const aiIconPath = 'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z';
+            
+            // Add typing indicator
+            const typingHTML = `
+                <div class="agent-chat-message agent-chat-typing-container">
+                    <div class="agent-chat-message-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="${aiIconPath}"/>
+                        </svg>
+                    </div>
+                    <div class="agent-chat-message-content">
+                        <div class="agent-chat-typing">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            expandedChat.insertAdjacentHTML('beforeend', typingHTML);
+            expandedChat.scrollTop = expandedChat.scrollHeight;
+            
+            // Generate and show explanation after delay
+            setTimeout(() => {
+                const typing = expandedChat.querySelector('.agent-chat-typing-container');
+                if (typing) typing.remove();
+                
+                const explanation = generateNumberExplanation(value, context, metric, trend);
+                addExplainMessage(explanation, false);
+            }, 1200);
+        }
+        
+        function generateNumberExplanation(value, context, metric, trend) {
+            const aiIconPath = 'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z';
+            
+            // Build trend indicator for display
+            const trendIcon = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '';
+            const trendClass = trend === 'up' ? 'positive' : trend === 'down' ? 'negative' : '';
+            const trendLabel = trend === 'up' ? 'Increasing' : trend === 'down' ? 'Decreasing' : 'Stable';
+            
+            // Context-aware explanations
+            const explanations = {
+                revenue: {
+                    title: 'Revenue Metric',
+                    body: `<strong>${value}</strong> represents DataBao's quarterly revenue figure.`,
+                    details: [
+                        'This is the total income from all business segments',
+                        'Includes subscription, services, and licensing revenue',
+                        'Enterprise segment (45%) is the largest contributor',
+                        'Growth driven by Platform 3.0 adoption and APAC expansion'
+                    ],
+                    comparison: { prev: '$214M', change: '+34%', label: 'Q4 2023' }
+                },
+                growth: {
+                    title: 'Growth Rate',
+                    body: `<strong>${value}</strong> indicates year-over-year growth performance.`,
+                    details: [
+                        'Calculated by comparing current period to same period last year',
+                        'Exceeds industry average growth of 18-22%',
+                        'Driven by enterprise customer acquisition',
+                        'APAC region contributing 52% growth'
+                    ],
+                    comparison: { prev: '28%', change: '+6pts', label: 'Q4 2023' }
+                },
+                retention: {
+                    title: 'Revenue Retention',
+                    body: `<strong>${value}</strong> is the Net Revenue Retention (NRR) rate.`,
+                    details: [
+                        'NRR > 100% means existing customers are spending more over time',
+                        'Includes expansion revenue from upsells and cross-sells',
+                        'Accounts for churn and contraction',
+                        'World-class SaaS companies typically target 120%+'
+                    ],
+                    comparison: { prev: '118%', change: '+10pts', label: 'Q4 2023' }
+                },
+                margin: {
+                    title: 'Profit Margin',
+                    body: `<strong>${value}</strong> represents the gross margin percentage.`,
+                    details: [
+                        'Gross margin = (Revenue - COGS) / Revenue',
+                        'High margin indicates strong pricing power',
+                        'SaaS companies typically target 70-80%',
+                        'Improvement driven by operational efficiency'
+                    ],
+                    comparison: { prev: '76%', change: '+200bps', label: 'Q4 2023' }
+                },
+                customers: {
+                    title: 'Customer Metric',
+                    body: `<strong>${value}</strong> represents customer count or customer-related data.`,
+                    details: [
+                        'Active paying customers across all segments',
+                        'Enterprise customers ($100K+) drive majority of revenue',
+                        'Customer acquisition accelerating in APAC',
+                        'Strong retention reducing churn'
+                    ],
+                    comparison: { prev: '2,156', change: '+32%', label: 'Q4 2023' }
+                },
+                cashflow: {
+                    title: 'Cash Flow',
+                    body: `<strong>${value}</strong> represents free cash flow performance.`,
+                    details: [
+                        'FCF = Operating Cash Flow - Capital Expenditures',
+                        'Indicates ability to generate cash after investments',
+                        'Used for dividends, buybacks, or reinvestment',
+                        'Strong FCF growth signals healthy business model'
+                    ],
+                    comparison: { prev: '$18M', change: '+133%', label: 'Q4 2023' }
+                },
+                expenses: {
+                    title: 'Operating Expenses',
+                    body: `<strong>${value}</strong> represents operating expenses.`,
+                    details: [
+                        'Includes R&D, Sales & Marketing, and G&A costs',
+                        'Growth rate lower than revenue growth = improving efficiency',
+                        'Investments in APAC and Platform 3.0 development',
+                        'Operating leverage improving over time'
+                    ],
+                    comparison: { prev: '$172M', change: '+15%', label: 'Q4 2023' }
+                },
+                profit: {
+                    title: 'Profit Metric',
+                    body: `<strong>${value}</strong> represents profitability.`,
+                    details: [
+                        'Gross profit = Revenue minus cost of goods sold',
+                        'Shows efficiency in delivering products/services',
+                        'Strong gross profit enables investment in growth',
+                        'Margin expansion indicates pricing power'
+                    ],
+                    comparison: { prev: '$163M', change: '+37%', label: 'Q4 2023' }
+                },
+                guidance: {
+                    title: 'Forward Guidance',
+                    body: `<strong>${value}</strong> is part of management's forward guidance.`,
+                    details: [
+                        'Represents expected future performance',
+                        'Based on current pipeline and market conditions',
+                        'Subject to macroeconomic factors',
+                        'Typically conservative to manage expectations'
+                    ],
+                    comparison: null
+                },
+                buyback: {
+                    title: 'Stock Buyback',
+                    body: `<strong>${value}</strong> represents the share repurchase program.`,
+                    details: [
+                        'Approved by the Board of Directors',
+                        'Signals confidence in company valuation',
+                        'Returns capital to shareholders',
+                        'Reduces share count, boosting EPS'
+                    ],
+                    comparison: null
+                },
+                metric: {
+                    title: 'Financial Metric',
+                    body: `<strong>${value}</strong> is a key performance indicator from this report.`,
+                    details: [
+                        'Part of DataBao\'s Q4 2024 financial results',
+                        'Compare with previous periods for trend analysis',
+                        'Context important for interpretation',
+                        'Ask about specific metrics for detailed breakdown'
+                    ],
+                    comparison: null
+                }
+            };
+            
+            const exp = explanations[context] || explanations.metric;
+            
+            // Use metric name if provided, otherwise use the default title
+            const displayTitle = metric || exp.title;
+            
+            let comparisonHTML = '';
+            if (exp.comparison) {
+                comparisonHTML = `
+                    <div class="agent-number-comparison">
+                        <div class="comparison-card">
+                            <div class="comparison-label">${exp.comparison.label}</div>
+                            <div class="comparison-value">${exp.comparison.prev}</div>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-label">Change</div>
+                            <div class="comparison-value">${exp.comparison.change}</div>
+                            <div class="comparison-change positive">YoY Improvement</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Build trend indicator HTML
+            let trendHTML = '';
+            if (trend) {
+                trendHTML = `
+                    <div class="agent-number-trend ${trendClass}">
+                        <span class="trend-arrow">${trendIcon}</span>
+                        <span class="trend-label">${trendLabel}</span>
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="agent-chat-message">
+                    <div class="agent-chat-message-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="${aiIconPath}"/>
+                        </svg>
+                    </div>
+                    <div class="agent-chat-message-content">
+                        <div class="agent-number-explanation">
+                            <div class="agent-number-header">
+                                <span class="agent-number-badge">${trendIcon}${value}</span>
+                                <div>
+                                    <div class="agent-number-title">${displayTitle}</div>
+                                    <div class="agent-number-context">${exp.title}</div>
+                                </div>
+                                ${trendHTML}
+                            </div>
+                            <div class="agent-number-body">
+                                <p>${exp.body}</p>
+                                <ul>
+                                    ${exp.details.map(d => `<li>${d}</li>`).join('')}
+                                </ul>
+                                ${comparisonHTML}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

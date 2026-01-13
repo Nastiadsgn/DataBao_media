@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Day in the Life: Inside DataBao's Engineering Culture | DataBao Media</title>
+    <meta name="description" content="From morning standups to midnight deployments, a visual journey through the people building the future of data analytics.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="A Day in the Life: Inside DataBao's Engineering Culture">
+    <meta property="og:description" content="From morning standups to midnight deployments, a visual journey through the people building the future of data analytics.">
+    <meta property="og:type" content="article">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    
+    <!-- Long-form specific styles -->
+    <style>
+        .longform-hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 0;
+        }
+        
+        .longform-hero .media-placeholder {
+            position: absolute;
+            inset: 0;
+            aspect-ratio: auto;
+        }
+        
+        .longform-hero-content {
+            position: relative;
+            z-index: 1;
+            padding: var(--space-16) var(--gutter);
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            width: 100%;
+        }
+        
+        .longform-hero-content .container {
+            max-width: var(--container-content);
+        }
+        
+        .longform-hero .section-label {
+            color: var(--color-white);
+            opacity: 0.8;
+            margin-bottom: var(--space-4);
+        }
+        
+        .longform-hero .story-headline {
+            font-size: var(--text-5xl);
+            color: var(--color-white);
+            max-width: 18ch;
+            margin-bottom: var(--space-6);
+        }
+        
+        .longform-hero .story-dek {
+            font-size: var(--text-xl);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 55ch;
+            margin-bottom: var(--space-6);
+        }
+        
+        .longform-hero .story-footer {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .chapter {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .chapter:last-of-type {
+            border-bottom: none;
+        }
+        
+        .chapter-heading {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid var(--color-ink-900);
+        }
+        
+        .chapter-number {
+            display: block;
+            font-size: var(--text-sm);
+            font-family: var(--font-body);
+            font-weight: var(--weight-bold);
+            text-transform: none;
+            letter-spacing: var(--tracking-wider);
+            color: var(--color-accent-500);
+            margin-bottom: var(--space-2);
+        }
+        
+        .full-bleed {
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding: 0;
+        }
+        
+        .full-bleed figure {
+            max-width: var(--container-content);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
+            margin: var(--space-10) 0;
+        }
+        
+        .photo-grid figure {
+            margin: 0;
+        }
+        
+        .photo-grid .media-placeholder {
+            aspect-ratio: 1;
+        }
+        
+        .pull-stat {
+            background: var(--color-primary-900);
+            color: var(--color-white);
+            padding: var(--space-10) var(--space-8);
+            border-radius: var(--radius-lg);
+            margin: var(--space-10) 0;
+            text-align: center;
+        }
+        
+        .pull-stat .stat-number {
+            font-family: var(--font-display);
+            font-size: var(--text-5xl);
+            font-weight: var(--weight-bold);
+            display: block;
+            margin-bottom: var(--space-2);
+        }
+        
+        .pull-stat .stat-label {
+            font-size: var(--text-lg);
+            opacity: 0.85;
+        }
+        
+        .inline-quote {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: var(--space-6);
+            margin: var(--space-10) 0;
+            padding: var(--space-6);
+            background: var(--color-paper-50);
+            border-radius: var(--radius-lg);
+        }
+        
+        .inline-quote .quote-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--color-paper-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+        }
+        
+        .inline-quote blockquote {
+            font-size: var(--text-xl);
+            border-left: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .inline-quote cite {
+            display: block;
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            font-style: normal;
+        }
+        
+        .inline-quote .cite-name {
+            font-weight: var(--weight-semibold);
+            color: var(--color-ink-800);
+        }
+        
+        .inline-quote .cite-title {
+            color: var(--color-ink-400);
+        }
+        
+        @media (max-width: 768px) {
+            .longform-hero .story-headline {
+                font-size: var(--text-3xl);
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .inline-quote {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="article-page longform-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Breaking News Ticker (if active) -->
+    <aside class="breaking-ticker" role="alert" aria-live="polite">
+        <div class="container">
+            <span class="ticker-label">NEW</span>
+            <div class="ticker-content">
+                <a href="#">Q4 earnings exceed analyst expectations by 12% — Full report available</a>
+            </div>
+            <button class="ticker-close" aria-label="Dismiss">&times;</button>
+        </div>
+    </aside>
+
+    <!-- Site Header -->
+    <header class="site-header" style="position: absolute; width: 100%; background: transparent; border: none; z-index: 100;">
+        <!-- Masthead -->
+        <div class="masthead" style="border: none; background: transparent;">
+            <div class="container">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" style="color: white;">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <a href="/" class="logo" style="color: white;">
+                    <span class="logo-text" style="color: white;">DataBao</span>
+                </a>
+                
+                <div class="masthead-actions">
+                    <button class="btn-search" aria-label="Search" style="color: white;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="#" class="user-avatar" aria-label="User profile" style="background: rgba(255,255,255,0.2);">
+                        <span class="avatar-initials" style="color: white;">JD</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="primary-nav" aria-label="Primary navigation" style="background: transparent; border: none;">
+            <div class="container">
+                <ul class="nav-list" role="menubar" style="color: white;">
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/breaking.html" role="menuitem" aria-haspopup="true" style="color: rgba(255,255,255,0.8);">
+                            Breaking Reports
+                            <span class="nav-indicator live"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/research.html" role="menuitem" aria-haspopup="true" style="color: rgba(255,255,255,0.8);">
+                            Data & Research
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/company-news.html" role="menuitem" aria-haspopup="true" style="color: rgba(255,255,255,0.8);">
+                            Company News
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/events.html" role="menuitem" aria-haspopup="true" style="color: rgba(255,255,255,0.8);">
+                            Events
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/rnd.html" role="menuitem" aria-haspopup="true" style="color: rgba(255,255,255,0.8);">
+                            R&amp;D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Platform Status Bar -->
+    <div class="market-snapshot">
+        <div class="container">
+            <div class="snapshot-content">
+                <a href="/sections/dashboards.html?tab=users" class="snapshot-item">
+                    <span class="snapshot-name">Active Users</span>
+                    <span class="snapshot-value">24,828</span>
+                    <span class="snapshot-change positive">+8.32%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=revenue" class="snapshot-item">
+                    <span class="snapshot-name">Q4 Revenue</span>
+                    <span class="snapshot-value">$287M</span>
+                    <span class="snapshot-change positive">+34%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=data" class="snapshot-item">
+                    <span class="snapshot-name">Data Syncs</span>
+                    <span class="snapshot-value">892K</span>
+                    <span class="snapshot-change positive">+5.22%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=uptime" class="snapshot-item">
+                    <span class="snapshot-name">Uptime</span>
+                    <span class="snapshot-value">99.99%</span>
+                    <span class="snapshot-change positive">+0.01%</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Breadcrumbs -->
+        <div class="container">
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+                <ol class="breadcrumbs-list">
+                    <li class="breadcrumbs-item">
+                        <a href="/">Home</a>
+                        <span class="breadcrumbs-separator">›</span>
+                    </li>
+                    <li class="breadcrumbs-item">
+                        <a href="/sections/company-news.html">Company News</a>
+                        <span class="breadcrumbs-separator">›</span>
+                    </li>
+                    <li class="breadcrumbs-item">
+                        <span class="breadcrumbs-current">A Day in the Life</span>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <article itemscope itemtype="https://schema.org/NewsArticle">
+            <!-- Hero Section -->
+            <header class="longform-hero">
+                <div class="media-placeholder" style="background: linear-gradient(135deg, #1a1a1a 0%, #434343 100%);">
+                    <svg class="placeholder-icon" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" style="opacity: 0.3;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div class="longform-hero-content">
+                    <div class="container">
+                        <div class="feature-label" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); display: inline-flex; margin-bottom: var(--space-4);">
+                            <span class="label-icon">📸</span>
+                            <span class="label-text" style="color: white;">Photo Essay</span>
+                        </div>
+                        <h1 class="story-headline" itemprop="headline">A Day in the Life: Inside DataBao's Engineering Culture</h1>
+                        <p class="story-dek" itemprop="description">From morning standups to midnight deployments, a visual journey through the people building the future of data analytics. An intimate look at how our 400-person engineering team ships code that powers Fortune 500 companies.</p>
+                        <footer class="story-footer">
+                            <span class="byline">Photography by <strong>Alex Chen</strong> • Text by <strong>Maria Santos</strong></span>
+                            <span class="reading-time">15 min read</span>
+                        </footer>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Chapter Navigation -->
+            <nav class="chapter-nav">
+                <div class="container">
+                    <a href="#chapter-1" class="chapter-link active">The Morning</a>
+                    <a href="#chapter-2" class="chapter-link">Deep Work</a>
+                    <a href="#chapter-3" class="chapter-link">Collaboration</a>
+                    <a href="#chapter-4" class="chapter-link">The Ship</a>
+                    <a href="#chapter-5" class="chapter-link">After Hours</a>
+                </div>
+            </nav>
+
+            <!-- Article Body -->
+            <div class="article-body" itemprop="articleBody">
+                <!-- Chapter 1 -->
+                <section class="chapter" id="chapter-1">
+                    <div class="container container-reading">
+                        <h2 class="chapter-heading">
+                            <span class="chapter-number">Chapter 1</span>
+                            The Morning
+                        </h2>
+                        
+                        <p><strong>It's 8:47 AM on a Tuesday in October</strong>, and the first engineers are trickling into DataBao's San Francisco headquarters. The office occupies three floors of a converted warehouse in SoMa, all exposed brick and natural light, with clusters of standing desks arranged in pods.</p>
+                        
+                        <p>Maya Patel, a senior engineer on the data pipeline team, is one of the early arrivals. She's been at DataBao for four years—practically a veteran in startup terms—and has a ritual: Earl Grey tea from the kitchen, fifteen minutes of catching up on overnight alerts, then headphones on for focused work before the day's meetings begin.</p>
+                    </div>
+                    
+                    <div class="full-bleed">
+                        <figure>
+                            <div class="media-placeholder aspect-21-9" style="background: linear-gradient(135deg, #f5f5f4 0%, #e7e5e4 100%);">
+                                <span class="placeholder-icon" style="font-size: 4rem;">☕</span>
+                            </div>
+                            <figcaption>The engineering floor comes alive around 9 AM, with teams gathering in the kitchen area before morning standups.</figcaption>
+                        </figure>
+                    </div>
+                    
+                    <div class="container container-reading">
+                        <p>"The mornings are sacred," Maya tells me, cradling her tea. "Before Slack gets busy, before the meetings start—that's when the real thinking happens."</p>
+                        
+                        <div class="inline-quote">
+                            <div class="quote-avatar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                            <div>
+                                <blockquote>
+                                    "We've deliberately structured the day to protect focus time. It's not accidental that we don't have any recurring meetings before 10 AM."
+                                </blockquote>
+                                <cite>
+                                    <span class="cite-name">Maya Patel</span>
+                                    <span class="cite-title">Senior Engineer, Data Pipeline Team</span>
+                                </cite>
+                            </div>
+                        </div>
+                        
+                        <p>By 9:30, the floor has transformed. What was a quiet workspace is now humming with conversation as teams cluster around whiteboards and screens. The data infrastructure team gathers in a glass-walled conference room for their daily standup—fifteen minutes, no chairs, everyone standing in a circle.</p>
+                    </div>
+                </section>
+
+                <!-- Chapter 2 -->
+                <section class="chapter" id="chapter-2">
+                    <div class="container container-reading">
+                        <h2 class="chapter-heading">
+                            <span class="chapter-number">Chapter 2</span>
+                            Deep Work
+                        </h2>
+                        
+                        <p>After standups wrap around 10:15, a different energy settles over the floor. This is the "maker schedule" in action—four uninterrupted hours that the engineering org fiercely protects.</p>
+                        
+                        <p>I watch as engineers settle into their zones. Some don headphones the size of earmuffs, signaling "do not disturb." Others retreat to phone booth-sized pods scattered throughout the space. A few head to the rooftop deck, laptops in tow, to work in the fog-filtered sunlight.</p>
+                    </div>
+                    
+                    <div class="container container-reading">
+                        <div class="photo-grid">
+                            <figure>
+                                <div class="media-placeholder" style="background: linear-gradient(135deg, #e7e5e4 0%, #d6d3d1 100%);">
+                                    <svg class="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/></svg>
+                                </div>
+                            </figure>
+                            <figure>
+                                <div class="media-placeholder" style="background: linear-gradient(135deg, #d6d3d1 0%, #e7e5e4 100%);">
+                                    <svg class="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                </div>
+                            </figure>
+                            <figure>
+                                <div class="media-placeholder" style="background: linear-gradient(135deg, #e7e5e4 0%, #d6d3d1 100%);">
+                                    <svg class="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                    
+                    <div class="container container-reading">
+                        <p>The work itself is invisible to the untrained eye—just fingers on keyboards, eyes on screens. But in those mundane moments, DataBao's engineers are processing petabytes of customer data, optimizing query performance, building the infrastructure that Fortune 500 companies depend on every day.</p>
+                        
+                        <div class="pull-stat">
+                            <span class="stat-number">2.4 PB</span>
+                            <span class="stat-label">Data processed daily across DataBao's platform</span>
+                        </div>
+                        
+                        <p>Carlos Mendez, who leads the query optimization team, shows me what he's working on: a visualization of query patterns across their largest customer's data warehouse. The screen is a constellation of nodes and edges, each representing a different query path.</p>
+                        
+                        <p>"See this cluster here?" He points to a dense knot of connections. "That's a $50 million company's entire analytics operation. Every insight their executives see, every dashboard their teams use—it all flows through code we wrote."</p>
+                    </div>
+                </section>
+
+                <!-- Chapter 3 -->
+                <section class="chapter" id="chapter-3">
+                    <div class="container container-reading">
+                        <h2 class="chapter-heading">
+                            <span class="chapter-number">Chapter 3</span>
+                            Collaboration
+                        </h2>
+                        
+                        <p>Lunch arrives, and with it, the day's collaborative energy. The cafeteria—which looks more like a high-end food hall than a corporate kitchen—fills with engineers mixing across teams, sharing tables with product managers and designers.</p>
+                        
+                        <p>This isn't accidental. CTO Priya Sharma designed the space to encourage what she calls "structured serendipity"—the chance encounters that spark unexpected solutions.</p>
+                    </div>
+                    
+                    <div class="full-bleed">
+                        <figure>
+                            <div class="media-placeholder aspect-16-9" style="background: linear-gradient(135deg, #f5f5f4 0%, #e7e5e4 100%);">
+                                <span class="placeholder-icon" style="font-size: 4rem;">🍽️</span>
+                            </div>
+                            <figcaption>The cafeteria at peak lunch hour. Teams are encouraged to sit with colleagues from different departments.</figcaption>
+                        </figure>
+                    </div>
+                    
+                    <div class="container container-reading">
+                        <div class="inline-quote">
+                            <div class="quote-avatar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                            <div>
+                                <blockquote>
+                                    "Some of our best features came from conversations that happened over tacos. You can't schedule innovation—you can only create the conditions for it."
+                                </blockquote>
+                                <cite>
+                                    <span class="cite-name">Priya Sharma</span>
+                                    <span class="cite-title">Chief Technology Officer</span>
+                                </cite>
+                            </div>
+                        </div>
+                        
+                        <p>After lunch, the afternoon brings the day's scheduled meetings: architecture reviews, sprint planning, one-on-ones with managers. These sessions have a different texture than the morning's focus time—more whiteboard sketches, more debate, more collective problem-solving.</p>
+                    </div>
+                </section>
+
+                <!-- Chapter 4 -->
+                <section class="chapter" id="chapter-4">
+                    <div class="container container-reading">
+                        <h2 class="chapter-heading">
+                            <span class="chapter-number">Chapter 4</span>
+                            The Ship
+                        </h2>
+                        
+                        <p>At 4:30 PM, a Slack notification pings across the engineering floor: "Deploy train departing in 30 minutes." This is the daily deployment window—the moment when the day's work goes live.</p>
+                        
+                        <p>The deploy room fills with engineers, each monitoring their team's changes as they roll out to production. Large screens show real-time metrics: error rates, latency, customer-facing status pages. The room is tense but controlled, like an airport control tower.</p>
+                        
+                        <div class="pull-stat">
+                            <span class="stat-number">47</span>
+                            <span class="stat-label">Average deployments per day</span>
+                        </div>
+                        
+                        <p>Today's deploy includes a significant database migration—the kind of change that, in traditional software companies, might warrant a weekend maintenance window and a war room. Here, it's routine, thanks to years of investment in deployment infrastructure.</p>
+                        
+                        <p>"We can do this because we've built the safety nets," explains DevOps lead James Kim, watching the metrics scroll by. "Automated rollbacks, canary deployments, feature flags. If something goes wrong, we catch it in seconds, not hours."</p>
+                    </div>
+                </section>
+
+                <!-- Chapter 5 -->
+                <section class="chapter" id="chapter-5">
+                    <div class="container container-reading">
+                        <h2 class="chapter-heading">
+                            <span class="chapter-number">Chapter 5</span>
+                            After Hours
+                        </h2>
+                        
+                        <p>By 6 PM, the office has thinned out. The day's deployment completed without incident, most engineers have headed home—to families, to hobbies, to lives outside of code.</p>
+                        
+                        <p>But a few remain. Not because they're required to, but because they're in the grip of a problem that won't let go.</p>
+                        
+                        <p>Maya Patel is still at her desk, working on a side project that's become something of a passion: a new approach to data lineage tracking that could, if it works, revolutionize how enterprises understand their data flows.</p>
+                    </div>
+                    
+                    <div class="full-bleed">
+                        <figure>
+                            <div class="media-placeholder aspect-21-9" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);">
+                                <span class="placeholder-icon" style="font-size: 4rem;">🌙</span>
+                            </div>
+                            <figcaption>The engineering floor at dusk. A handful of engineers continue working on passion projects.</figcaption>
+                        </figure>
+                    </div>
+                    
+                    <div class="container container-reading">
+                        <p>"Nobody asked me to do this," she says, gesturing at the prototype on her screen. "But that's kind of the point. The best ideas don't come from roadmap meetings. They come from engineers who can't stop thinking about problems."</p>
+                        
+                        <div class="inline-quote">
+                            <div class="quote-avatar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                            <div>
+                                <blockquote>
+                                    "We don't measure success by hours in seat. We measure it by problems solved, customers helped, systems improved. That distinction matters."
+                                </blockquote>
+                                <cite>
+                                    <span class="cite-name">Maya Patel</span>
+                                    <span class="cite-title">Senior Engineer, Data Pipeline Team</span>
+                                </cite>
+                            </div>
+                        </div>
+                        
+                        <p>As I leave the DataBao office, the city lights of San Francisco are just starting to flicker on. Tomorrow, the cycle will begin again: the morning tea, the standups, the deep work, the deploys. Another day of invisible infrastructure, quietly powering the world's data.</p>
+                        
+                        <p>And somewhere, in a glass-walled office or a rooftop pod, an engineer will have an idea that changes everything.</p>
+                        
+                        <p style="text-align: center; margin-top: var(--space-12); font-style: italic; color: var(--color-ink-400);">— End —</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Article Footer -->
+            <footer class="article-footer">
+                <div class="container container-reading">
+                    <div class="article-tags">
+                        <a href="/tags/features.html" class="tag">Feature</a>
+                        <a href="/tags/engineering.html" class="tag">Engineering</a>
+                        <a href="/tags/culture.html" class="tag">Culture</a>
+                        <a href="/tags/photo-essay.html" class="tag">Photo Essay</a>
+                    </div>
+
+                    <div class="article-share">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <span class="footer-logo">DataBao<span>Media</span></span>
+                    <p class="footer-tagline">News, Analysis & Research</p>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2024 DataBao Inc. All rights reserved.</p>
+                    <nav class="legal-links">
+                        <a href="/pages/privacy.html">Privacy Policy</a>
+                        <a href="/pages/terms.html">Terms of Use</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Agent Chat Button -->
+    <button class="agent-trigger" id="agent-trigger" aria-label="Open AI assistant">
+        <svg class="agent-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+        </svg>
+        <span class="agent-trigger-text">Ask agent about anything...</span>
+        <span class="agent-trigger-arrow disabled">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </span>
+    </button>
+
+    <!-- AI Agent Expanded Chat -->
+    <div class="agent-expanded" id="agent-expanded">
+        <!-- Header -->
+        <div class="agent-expanded-header">
+            <span class="agent-expanded-title">AI Agent</span>
+            <div class="agent-expanded-header-actions">
+                <button class="agent-expanded-expand" aria-label="Pin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="17" x2="12" y2="22"></line>
+                        <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+                    </svg>
+                </button>
+                <button class="agent-expanded-close" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Chat History Tabs -->
+        <div class="agent-chat-tabs" id="agent-chat-tabs">
+            <div class="agent-chat-tabs-scroll">
+                <div class="agent-chat-tab active" data-tab-id="1">
+                    <span class="agent-chat-tab-title">Deep Dive</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="agent-chat-tab" data-tab-id="2">
+                    <span class="agent-chat-tab-title">Article Notes</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <button class="agent-chat-tab-new" id="agent-new-chat" aria-label="New chat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="agent-suggestions" id="agent-suggestions">
+            <div class="agent-suggestions-grid">
+                <button class="agent-suggestion" data-prompt="What is the engineering culture like at DataBao?">
+                    <span class="agent-suggestion-text">Engineering culture</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What technologies does the team use?">
+                    <span class="agent-suggestion-text">Tech stack details</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="How is the team structured?">
+                    <span class="agent-suggestion-text">Team structure</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What career opportunities are available?">
+                    <span class="agent-suggestion-text">Career opportunities</span>
+                </button>
+            </div>
+        </div>
+        <div class="agent-expanded-chat" id="agent-expanded-chat"></div>
+        <div class="agent-expanded-inner">
+            <svg class="agent-expanded-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+            </svg>
+            <textarea class="agent-expanded-input" id="agent-expanded-input" placeholder="What do you want the agent to do?" rows="1"></textarea>
+            <div class="agent-expanded-actions">
+                <button class="agent-expanded-send" id="agent-expanded-send" aria-label="Send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+

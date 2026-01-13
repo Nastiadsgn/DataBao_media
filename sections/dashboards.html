@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Dashboards | DataBao Media</title>
+    <meta name="description" content="Interactive dashboards showing platform metrics, user analytics, revenue data, and system performance.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    
+    <style>
+        /* Dashboard Page Specific Styles */
+        .dashboard-page {
+            background: var(--color-paper-50);
+            min-height: 100vh;
+        }
+        
+        .dashboard-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-ink-100);
+            padding: var(--space-6) 0;
+            margin-bottom: var(--space-6);
+        }
+        
+        .dashboard-header h1 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-2);
+        }
+        
+        .dashboard-header p {
+            color: var(--color-ink-500);
+            font-size: var(--text-sm);
+        }
+        
+        /* Dashboard Tabs */
+        .dashboard-tabs {
+            display: flex;
+            gap: var(--space-1);
+            background: var(--color-paper-100);
+            padding: var(--space-1);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+            overflow-x: auto;
+        }
+        
+        .dashboard-tab {
+            padding: var(--space-3) var(--space-5);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--color-ink-500);
+            background: transparent;
+            border-radius: var(--radius-md);
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .dashboard-tab:hover {
+            color: var(--color-ink-700);
+            background: var(--color-white);
+        }
+        
+        .dashboard-tab.active {
+            background: var(--color-white);
+            color: var(--color-ink-900);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* Key Metrics Row */
+        .key-metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .key-metric-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-ink-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+        }
+        
+        .key-metric-card.highlighted {
+            border-color: var(--color-primary-400);
+            box-shadow: 0 0 0 3px rgba(27, 125, 189, 0.1);
+        }
+        
+        .key-metric-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-400);
+            margin-bottom: var(--space-2);
+        }
+        
+        .key-metric-value {
+            font-family: var(--font-body);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-ink-900);
+            line-height: 1.2;
+        }
+        
+        .key-metric-change {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            margin-top: var(--space-2);
+        }
+        
+        .key-metric-change.positive { color: #059669; }
+        .key-metric-change.negative { color: #dc2626; }
+        
+        .key-metric-change svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .key-metric-period {
+            font-size: 0.75rem;
+            color: var(--color-ink-400);
+            margin-top: var(--space-1);
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+        
+        .dashboard-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-ink-100);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .dashboard-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) var(--space-5);
+            border-bottom: 1px solid var(--color-ink-100);
+        }
+        
+        .dashboard-card-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-ink-900);
+        }
+        
+        .dashboard-card-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .dashboard-card-actions button {
+            padding: var(--space-1) var(--space-2);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--color-ink-500);
+            background: var(--color-paper-50);
+            border: 1px solid var(--color-ink-100);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .dashboard-card-actions button:hover,
+        .dashboard-card-actions button.active {
+            background: var(--color-ink-900);
+            color: var(--color-white);
+            border-color: var(--color-ink-900);
+        }
+        
+        .dashboard-card-body {
+            padding: var(--space-5);
+        }
+        
+        /* Chart Area */
+        .chart-container {
+            position: relative;
+            height: 280px;
+            background: linear-gradient(180deg, var(--color-paper-50) 0%, var(--color-white) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chart-container svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: var(--space-6);
+            margin-top: var(--space-4);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-ink-100);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 0.8125rem;
+            color: var(--color-ink-600);
+        }
+        
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        
+        .legend-dot.primary { background: var(--color-primary-500); }
+        .legend-dot.secondary { background: var(--color-ink-300); }
+        .legend-dot.tertiary { background: #059669; }
+        
+        /* Stats Table */
+        .stats-table {
+            width: 100%;
+        }
+        
+        .stats-table th {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-400);
+            text-align: left;
+            padding: var(--space-2) var(--space-3);
+            border-bottom: 1px solid var(--color-ink-100);
+        }
+        
+        .stats-table th:last-child {
+            text-align: right;
+        }
+        
+        .stats-table td {
+            font-size: 0.875rem;
+            padding: var(--space-3);
+            border-bottom: 1px solid var(--color-ink-50);
+        }
+        
+        .stats-table td:first-child {
+            font-weight: 500;
+            color: var(--color-ink-800);
+        }
+        
+        .stats-table td:last-child {
+            text-align: right;
+            font-family: var(--font-body);
+            font-weight: 600;
+        }
+        
+        .stats-table .positive { color: #059669; }
+        .stats-table .negative { color: #dc2626; }
+        
+        /* Related Dashboards */
+        .related-section {
+            margin-top: var(--space-8);
+        }
+        
+        .related-section h3 {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0.08em;
+            color: var(--color-ink-500);
+            margin-bottom: var(--space-4);
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-4);
+        }
+        
+        .related-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-ink-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+        
+        .related-card:hover {
+            border-color: var(--color-primary-400);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .related-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--color-paper-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: var(--space-3);
+        }
+        
+        .related-card-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-ink-800);
+            margin-bottom: var(--space-1);
+        }
+        
+        .related-card-desc {
+            font-size: 0.75rem;
+            color: var(--color-ink-400);
+        }
+        
+        /* Full Width Card */
+        .dashboard-card.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-6);
+        }
+        
+        .breakdown-item h4 {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-400);
+            margin-bottom: var(--space-3);
+        }
+        
+        /* Progress Bars */
+        .progress-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .progress-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+        }
+        
+        .progress-label span:first-child {
+            color: var(--color-ink-700);
+        }
+        
+        .progress-label span:last-child {
+            font-weight: 600;
+            color: var(--color-ink-900);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--color-paper-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--color-primary-500);
+            border-radius: 3px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .key-metrics-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .breakdown-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .key-metrics-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Breaking News Ticker (if active) -->
+    <aside class="breaking-ticker" role="alert" aria-live="polite">
+        <div class="container">
+            <span class="ticker-label">NEW</span>
+            <div class="ticker-content">
+                <a href="#">Q4 earnings exceed analyst expectations by 12% — Full report available</a>
+            </div>
+            <button class="ticker-close" aria-label="Dismiss">&times;</button>
+        </div>
+    </aside>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <!-- Masthead -->
+        <div class="masthead">
+            <div class="container">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <a href="/" class="logo">
+                    <span class="logo-text">DataBao</span>
+                </a>
+                
+                <div class="masthead-actions">
+                    <button class="btn-search" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="#" class="user-avatar" aria-label="User profile">
+                        <span class="avatar-initials">JD</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="primary-nav" aria-label="Primary navigation">
+            <div class="container">
+                <ul class="nav-list" role="menubar">
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/breaking.html" role="menuitem" aria-haspopup="true">
+                            Breaking Reports
+                            <span class="nav-indicator live"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/research.html" role="menuitem" aria-haspopup="true">
+                            Data & Research
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/company-news.html" role="menuitem" aria-haspopup="true">
+                            Company News
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/events.html" role="menuitem" aria-haspopup="true">
+                            Events
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/rnd.html" role="menuitem" aria-haspopup="true">
+                            R&amp;D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Platform Status Bar -->
+    <div class="market-snapshot">
+        <div class="container">
+            <div class="snapshot-content">
+                <a href="/sections/dashboards.html?tab=users" class="snapshot-item">
+                    <span class="snapshot-name">Active Users</span>
+                    <span class="snapshot-value">24,828</span>
+                    <span class="snapshot-change positive">+8.32%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=revenue" class="snapshot-item">
+                    <span class="snapshot-name">Q4 Revenue</span>
+                    <span class="snapshot-value">$287M</span>
+                    <span class="snapshot-change positive">+34%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=data" class="snapshot-item">
+                    <span class="snapshot-name">Data Syncs</span>
+                    <span class="snapshot-value">892K</span>
+                    <span class="snapshot-change positive">+5.22%</span>
+                </a>
+                <a href="/sections/dashboards.html?tab=uptime" class="snapshot-item">
+                    <span class="snapshot-name">Uptime</span>
+                    <span class="snapshot-value">99.99%</span>
+                    <span class="snapshot-change positive">+0.01%</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <h1>Platform Dashboards</h1>
+                <p>Real-time analytics and performance metrics across all platform dimensions.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Dashboard Tabs -->
+            <div class="dashboard-tabs">
+                <button class="dashboard-tab active" data-tab="users">👥 Users</button>
+                <button class="dashboard-tab" data-tab="revenue">$ Revenue</button>
+                <button class="dashboard-tab" data-tab="data">▤ Data Processing</button>
+                <button class="dashboard-tab" data-tab="uptime">◉ System Health</button>
+                <button class="dashboard-tab" data-tab="customers">◆ Enterprise</button>
+            </div>
+
+            <!-- Key Metrics Row -->
+            <div class="key-metrics-row">
+                <div class="key-metric-card highlighted" id="metric-users">
+                    <div class="key-metric-label">New Platform Users</div>
+                    <div class="key-metric-value">+ 24,828</div>
+                    <div class="key-metric-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                        +25% vs last quarter
+                    </div>
+                    <div class="key-metric-period">Q4 2024</div>
+                </div>
+                
+                <div class="key-metric-card" id="metric-revenue">
+                    <div class="key-metric-label">Q4 Revenue</div>
+                    <div class="key-metric-value">$287M</div>
+                    <div class="key-metric-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                        +34% YoY
+                    </div>
+                    <div class="key-metric-period">Record quarter</div>
+                </div>
+                
+                <div class="key-metric-card" id="metric-data">
+                    <div class="key-metric-label">Data Processed</div>
+                    <div class="key-metric-value">2.4 PB</div>
+                    <div class="key-metric-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                        Daily average
+                    </div>
+                    <div class="key-metric-period">Last 30 days</div>
+                </div>
+                
+                <div class="key-metric-card" id="metric-uptime">
+                    <div class="key-metric-label">Platform Uptime</div>
+                    <div class="key-metric-value">99.99%</div>
+                    <div class="key-metric-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                        Exceeds SLA
+                    </div>
+                    <div class="key-metric-period">Rolling 90 days</div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Main Chart -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="dashboard-card-title">User Growth Trend</span>
+                        <div class="dashboard-card-actions">
+                            <button class="active">7D</button>
+                            <button>30D</button>
+                            <button>90D</button>
+                            <button>1Y</button>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="chart-container">
+                            <svg viewBox="0 0 600 250" preserveAspectRatio="none">
+                                <!-- Grid lines -->
+                                <line x1="0" y1="50" x2="600" y2="50" stroke="#e5e5e5" stroke-width="1"/>
+                                <line x1="0" y1="100" x2="600" y2="100" stroke="#e5e5e5" stroke-width="1"/>
+                                <line x1="0" y1="150" x2="600" y2="150" stroke="#e5e5e5" stroke-width="1"/>
+                                <line x1="0" y1="200" x2="600" y2="200" stroke="#e5e5e5" stroke-width="1"/>
+                                
+                                <!-- Area fill -->
+                                <path d="M0,180 C50,175 100,165 150,155 C200,145 250,130 300,115 C350,100 400,85 450,75 C500,65 550,55 600,45 L600,250 L0,250 Z" 
+                                      fill="url(#gradient)" opacity="0.3"/>
+                                
+                                <!-- Main line -->
+                                <path d="M0,180 C50,175 100,165 150,155 C200,145 250,130 300,115 C350,100 400,85 450,75 C500,65 550,55 600,45" 
+                                      fill="none" stroke="#1b7dbd" stroke-width="2.5"/>
+                                
+                                <!-- Comparison line -->
+                                <path d="M0,200 C50,198 100,195 150,190 C200,185 250,178 300,172 C350,165 400,158 450,152 C500,148 550,145 600,142" 
+                                      fill="none" stroke="#a6a6a6" stroke-width="1.5" stroke-dasharray="4,4"/>
+                                
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#1b7dbd" stop-opacity="0.4"/>
+                                        <stop offset="100%" stop-color="#1b7dbd" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot primary"></span>
+                                <span>Current Period: 24,828 users</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot secondary"></span>
+                                <span>Previous Period: 19,862 users</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Panel -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="dashboard-card-title">User Breakdown</span>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Segment</th>
+                                    <th>Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Enterprise</td>
+                                    <td class="positive">+4,521 (+32%)</td>
+                                </tr>
+                                <tr>
+                                    <td>Mid-Market</td>
+                                    <td class="positive">+8,234 (+28%)</td>
+                                </tr>
+                                <tr>
+                                    <td>SMB</td>
+                                    <td class="positive">+9,876 (+22%)</td>
+                                </tr>
+                                <tr>
+                                    <td>Individual</td>
+                                    <td class="positive">+2,197 (+18%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: var(--space-6);">
+                            <h4 style="font-size: 0.6875rem; font-weight: 600; text-transform: none; letter-spacing: 0.05em; color: var(--color-ink-400); margin-bottom: var(--space-3);">By Region</h4>
+                            <div class="progress-list">
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>North America</span>
+                                        <span>42%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 42%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Europe</span>
+                                        <span>28%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 28%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Asia-Pacific</span>
+                                        <span>22%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 22%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Other</span>
+                                        <span>8%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 8%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakdown Section -->
+            <div class="dashboard-card full-width">
+                <div class="dashboard-card-header">
+                    <span class="dashboard-card-title">User Activity Breakdown</span>
+                    <div class="dashboard-card-actions">
+                        <button>Export CSV</button>
+                        <button>Share</button>
+                    </div>
+                </div>
+                <div class="dashboard-card-body">
+                    <div class="breakdown-grid">
+                        <div class="breakdown-item">
+                            <h4>Top Features Used</h4>
+                            <div class="progress-list">
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Dashboard Builder</span>
+                                        <span>89%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 89%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Data Connectors</span>
+                                        <span>76%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 76%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Scheduled Reports</span>
+                                        <span>64%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 64%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>AI Insights</span>
+                                        <span>52%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 52%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <h4>Session Duration</h4>
+                            <div class="progress-list">
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>< 5 minutes</span>
+                                        <span>12%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 12%; background: #f59e0b;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>5-15 minutes</span>
+                                        <span>28%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 28%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>15-30 minutes</span>
+                                        <span>35%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 35%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>> 30 minutes</span>
+                                        <span>25%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 25%; background: #059669;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <h4>Device Type</h4>
+                            <div class="progress-list">
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Desktop</span>
+                                        <span>68%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 68%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Tablet</span>
+                                        <span>18%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 18%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-label">
+                                        <span>Mobile</span>
+                                        <span>14%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 14%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Dashboards -->
+            <section class="related-section">
+                <h3>Related Dashboards</h3>
+                <div class="related-grid">
+                    <a href="/sections/dashboards.html?tab=revenue" class="related-card">
+                        <div class="related-card-icon">$</div>
+                        <div class="related-card-title">Revenue Analytics</div>
+                        <div class="related-card-desc">MRR, ARR, and revenue trends</div>
+                    </a>
+                    <a href="/sections/dashboards.html?tab=customers" class="related-card">
+                        <div class="related-card-icon">◆</div>
+                        <div class="related-card-title">Enterprise Accounts</div>
+                        <div class="related-card-desc">312 enterprise customers</div>
+                    </a>
+                    <a href="/sections/dashboards.html?tab=data" class="related-card">
+                        <div class="related-card-icon">▤</div>
+                        <div class="related-card-title">Data Processing</div>
+                        <div class="related-card-desc">Pipeline and ingestion metrics</div>
+                    </a>
+                    <a href="/sections/dashboards.html?tab=uptime" class="related-card">
+                        <div class="related-card-icon">◉</div>
+                        <div class="related-card-title">System Health</div>
+                        <div class="related-card-desc">Uptime, latency, and errors</div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: var(--space-12);">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <span class="footer-logo">DataBao<span>Media</span></span>
+                    <p class="footer-tagline">News, Analysis & Research</p>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2024 DataBao Inc. All rights reserved.</p>
+                    <nav class="legal-links">
+                        <a href="/pages/privacy.html">Privacy Policy</a>
+                        <a href="/pages/terms.html">Terms of Use</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.dashboard-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.dashboard-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Highlight corresponding metric card
+                const tabName = tab.dataset.tab;
+                document.querySelectorAll('.key-metric-card').forEach(card => {
+                    card.classList.remove('highlighted');
+                });
+                const targetCard = document.getElementById('metric-' + tabName);
+                if (targetCard) {
+                    targetCard.classList.add('highlighted');
+                }
+            });
+        });
+    </script>
+
+    <!-- AI Agent Chat Button -->
+    <button class="agent-trigger" id="agent-trigger" aria-label="Open AI assistant">
+        <svg class="agent-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+        </svg>
+        <span class="agent-trigger-text">Ask agent about anything...</span>
+        <span class="agent-trigger-arrow disabled">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </span>
+    </button>
+
+    <!-- AI Agent Expanded Chat -->
+    <div class="agent-expanded" id="agent-expanded">
+        <!-- Header -->
+        <div class="agent-expanded-header">
+            <span class="agent-expanded-title">AI Agent</span>
+            <div class="agent-expanded-header-actions">
+                <button class="agent-expanded-expand" aria-label="Pin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="17" x2="12" y2="22"></line>
+                        <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+                    </svg>
+                </button>
+                <button class="agent-expanded-close" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Chat History Tabs -->
+        <div class="agent-chat-tabs" id="agent-chat-tabs">
+            <div class="agent-chat-tabs-scroll">
+                <div class="agent-chat-tab active" data-tab-id="1">
+                    <span class="agent-chat-tab-title">KPI Dashboard</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="agent-chat-tab" data-tab-id="2">
+                    <span class="agent-chat-tab-title">Metrics Query</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <button class="agent-chat-tab-new" id="agent-new-chat" aria-label="New chat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="agent-suggestions" id="agent-suggestions">
+            <div class="agent-suggestions-grid">
+                <button class="agent-suggestion" data-prompt="Show me the key metrics overview">
+                    <span class="agent-suggestion-text">Key metrics overview</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What's trending in the dashboards?">
+                    <span class="agent-suggestion-text">Trending metrics</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="Compare this month vs last month">
+                    <span class="agent-suggestion-text">Month-over-month</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What needs attention?">
+                    <span class="agent-suggestion-text">Items needing attention</span>
+                </button>
+            </div>
+        </div>
+        <div class="agent-expanded-chat" id="agent-expanded-chat"></div>
+        <div class="agent-expanded-inner">
+            <svg class="agent-expanded-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+            </svg>
+            <textarea class="agent-expanded-input" id="agent-expanded-input" placeholder="What do you want the agent to do?" rows="1"></textarea>
+            <div class="agent-expanded-actions">
+                <button class="agent-expanded-send" id="agent-expanded-send" aria-label="Send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

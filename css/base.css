@@ -319,16 +319,32 @@ hr {
 /* Accessibility */
 .skip-link {
     position: absolute;
-    left: -9999px;
-    top: var(--space-4);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
     z-index: var(--z-modal);
     background: var(--color-ink-900);
     color: var(--color-white);
-    padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-md);
 }
 
 .skip-link:focus {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: var(--space-3) var(--space-4);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+    top: var(--space-4);
     left: var(--space-4);
 }
 

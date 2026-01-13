@@ -383,10 +383,15 @@
 .content-section.events-section {
     border-bottom: none;
     padding-bottom: 0;
+    padding-top: 24px;
 }
 
 .content-section.news-section {
     border-bottom: none;
+    padding-bottom: 0;
+}
+
+.news-section .container {
     padding-bottom: 0;
 }
 
@@ -826,6 +831,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
+    margin-top: 24px;
     margin-bottom: 24px;
 }
 

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & Research | DataBao Media</title>
+    <meta name="description" content="Real-time platform metrics, data pipeline status, and research insights from DataBao.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    
+    <style>
+        /* Data & Research Page Specific Styles */
+        .research-page {
+            background: var(--color-white);
+        }
+        
+        /* Market Snapshot Bar */
+        .market-snapshot {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            padding: 16px 0;
+            border-bottom: none;
+            font-size: 0.75rem;
+            overflow-x: auto;
+        }
+        
+        .snapshot-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            white-space: nowrap;
+        }
+        
+        .snapshot-name {
+            font-weight: 600;
+            color: var(--color-ink-900);
+        }
+        
+        .snapshot-value {
+            color: var(--color-ink-600);
+        }
+        
+        .snapshot-change {
+            font-weight: 500;
+        }
+        
+        .snapshot-change.positive { color: #059669; }
+        .snapshot-change.negative { color: #dc2626; }
+        
+        .snapshot-link {
+            margin-left: auto;
+            color: var(--color-ink-500);
+            font-weight: 500;
+        }
+        
+        #main-content {
+            padding-top: 0px;
+        }
+        
+        .container {
+            margin-top: 0px;
+        }
+        
+        .reports-header {
+            border-bottom: none;
+            padding-bottom: var(--space-4);
+            margin-bottom: var(--space-6);
+            height: fit-content;
+        }
+        
+        .reports-header h1 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-4);
+            padding-top: 24px;
+        }
+        
+        .reports-nav {
+            display: flex;
+            gap: 32px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 0px;
+        }
+        
+        .reports-nav a {
+            background: none;
+            border: none;
+            padding: 12px 0;
+            font-size: 15px;
+            font-weight: 400;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        
+        .reports-nav a:hover {
+            color: #333;
+        }
+        
+        .reports-nav a.active {
+            color: #1a1a1a;
+            font-weight: 400;
+        }
+        
+        .reports-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #1a1a1a;
+            border-radius: 2px 2px 0 0;
+        }
+        
+        /* Section Styles */
+        .data-section {
+            margin-bottom: 0;
+            padding-bottom: 12px;
+            border-bottom: none;
+        }
+        
+        .section-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-4);
+            padding-top: var(--space-6);
+            padding-bottom: 0;
+            border-bottom: 1px solid var(--color-ink-200);
+        }
+        
+        
+        .time-filters {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .time-filters a {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            color: var(--color-ink-400);
+        }
+        
+        .time-filters a:hover,
+        .time-filters a.active {
+            color: var(--color-ink-900);
+        }
+        
+        .timestamp {
+            font-size: 0.75rem;
+            color: var(--color-ink-400);
+        }
+        
+        /* Metrics Header */
+        .metrics-header {
+            display: flex;
+            gap: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+        
+        .metric-legend {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        
+        .legend-dot.primary { background: var(--color-ink-900); }
+        .legend-dot.secondary { background: var(--color-ink-300); }
+        
+        .legend-label {
+            font-size: 0.75rem;
+            color: var(--color-ink-600);
+        }
+        
+        .legend-value {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-ink-900);
+        }
+        
+        .legend-change {
+            font-size: 0.75rem;
+            margin-left: var(--space-2);
+        }
+        
+        .legend-change.positive { color: #059669; }
+        .legend-change.negative { color: #dc2626; }
+        
+        /* Chart Placeholder */
+        .chart-area {
+            background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+            border: none;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-area::before {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--color-ink-100);
+        }
+        
+        .chart-line {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            height: 120px;
+        }
+        
+        .chart-line svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .chart-axis {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-2) var(--space-3);
+            font-size: 0.625rem;
+            color: var(--color-ink-400);
+        }
+        
+        .chart-y-axis {
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-3);
+            font-size: 0.625rem;
+            color: var(--color-ink-400);
+        }
+        
+        /* Data Tables */
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+        
+        .spotlight-column h4 {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--color-ink-900);
+            padding-bottom: var(--space-2);
+            border-bottom: 1px solid var(--color-ink-200);
+            margin-bottom: var(--space-3);
+        }
+        
+        .data-table {
+            width: 100%;
+            font-size: 0.8125rem;
+        }
+        
+        .data-table th {
+            font-weight: 400;
+            color: var(--color-ink-400);
+            text-align: left;
+            padding: var(--space-1) 0;
+            font-size: 0.6875rem;
+        }
+        
+        .data-table th:last-child,
+        .data-table td:last-child {
+            text-align: right;
+        }
+        
+        .data-table td {
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid var(--color-ink-50);
+        }
+        
+        .data-table .name {
+            font-weight: 500;
+            color: var(--color-ink-800);
+        }
+        
+        .data-table .value {
+            font-family: var(--font-body);
+            font-weight: 600;
+            color: var(--color-ink-900);
+        }
+        
+        .data-table .change {
+            font-weight: 500;
+        }
+        
+        .data-table .change.positive { color: #059669; }
+        .data-table .change.negative { color: #dc2626; }
+        
+        /* World Markets Grid */
+        .markets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-6);
+        }
+        
+        .market-card h4 {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0px;
+            color: var(--color-ink-500);
+            margin-bottom: var(--space-1);
+        }
+        
+        .market-card .index-name {
+            font-size: 0.8125rem;
+            color: var(--color-ink-800);
+            margin-bottom: var(--space-3);
+        }
+        
+        .market-chart {
+            height: 120px;
+            background: var(--color-paper-50);
+            border: none;
+            position: relative;
+        }
+        
+        /* Index Tables */
+        .index-section {
+            margin-top: var(--space-8);
+        }
+        
+        .index-section h4 {
+            font-family: var(--font-body);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0.08em;
+            color: var(--color-ink-900);
+            margin-bottom: var(--space-3);
+        }
+        
+        .index-table {
+            width: 100%;
+            font-size: 0.75rem;
+            border-collapse: collapse;
+        }
+        
+        .index-table th {
+            font-weight: 400;
+            color: var(--color-ink-400);
+            text-align: right;
+            padding: var(--space-2) var(--space-3);
+            font-size: 0.625rem;
+            text-transform: none;
+            letter-spacing: 0.05em;
+        }
+        
+        .index-table th:first-child {
+            text-align: left;
+        }
+        
+        .index-table td {
+            padding: var(--space-2) var(--space-3);
+            border-bottom: 1px solid var(--color-ink-50);
+        }
+        
+        .index-table td:first-child {
+            font-weight: 500;
+            color: var(--color-ink-800);
+        }
+        
+        .index-table td {
+            text-align: right;
+            font-family: var(--font-body);
+        }
+        
+        .index-table .positive { color: #059669; }
+        .index-table .negative { color: #dc2626; }
+        
+        .sparkline {
+            width: 80px;
+            height: 20px;
+            background: var(--color-paper-50);
+            display: inline-block;
+        }
+        
+        /* Commodities & Currencies */
+        .commodities-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-8);
+        }
+        
+        .commodity-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
+        }
+        
+        .commodity-card {
+            border: 1px solid var(--color-ink-100);
+            padding: var(--space-3);
+        }
+        
+        .commodity-card .label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--color-ink-500);
+            margin-bottom: var(--space-1);
+        }
+        
+        .commodity-card .price {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-ink-900);
+        }
+        
+        .commodity-card .meta {
+            font-size: 0.625rem;
+            color: var(--color-ink-400);
+            margin-top: var(--space-1);
+        }
+        
+        .commodity-chart {
+            height: 100px;
+            background: var(--color-paper-50);
+            margin-top: var(--space-3);
+        }
+        
+        .currency-table {
+            width: 100%;
+            font-size: 0.75rem;
+        }
+        
+        .currency-table th {
+            font-weight: 700;
+            color: var(--color-ink-900);
+            text-align: left;
+            padding: var(--space-2) 0;
+            font-size: 16px;
+            text-transform: none;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--color-ink-200);
+        }
+        
+        .currency-table td {
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid var(--color-ink-50);
+        }
+        
+        .currency-table td:last-child {
+            text-align: right;
+        }
+        
+        /* Data Source Footer */
+        .data-source {
+            margin-top: var(--space-8);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-ink-100);
+        }
+        
+        .data-source-logo {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #c73e1d;
+            margin-bottom: var(--space-2);
+        }
+        
+        .data-source p {
+            font-size: 0.6875rem;
+            color: var(--color-ink-400);
+        }
+        
+        .data-source a {
+            color: var(--color-primary-600);
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .spotlight-grid,
+            .markets-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .commodities-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .commodity-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .reports-header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .metrics-header {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+            
+            .commodity-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="research-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Breaking News Ticker (if active) -->
+    <aside class="breaking-ticker" role="alert" aria-live="polite">
+        <div class="container">
+            <span class="ticker-label">NEW</span>
+            <div class="ticker-content">
+                <a href="#">Q4 earnings exceed analyst expectations by 12% — Full report available</a>
+            </div>
+            <button class="ticker-close" aria-label="Dismiss">&times;</button>
+        </div>
+    </aside>
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <!-- Masthead -->
+        <div class="masthead">
+            <div class="container">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <a href="/" class="logo">
+                    <span class="logo-text">DataBao</span>
+                </a>
+                
+                <div class="masthead-actions">
+                    <button class="btn-search" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="#" class="user-avatar" aria-label="User profile">
+                        <span class="avatar-initials">JD</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="primary-nav" aria-label="Primary navigation">
+            <div class="container">
+                <ul class="nav-list" role="menubar">
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/breaking.html" role="menuitem" aria-haspopup="true">
+                            Breaking Reports
+                            <span class="nav-indicator live"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/research.html" role="menuitem" aria-haspopup="true">
+                            Data & Research
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/company-news.html" role="menuitem" aria-haspopup="true">
+                            Company News
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/events.html" role="menuitem" aria-haspopup="true">
+                            Events
+                        </a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="/sections/rnd.html" role="menuitem" aria-haspopup="true">
+                            R&amp;D
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <div class="container">
+            
+            <!-- Market Snapshot Bar -->
+            <div class="market-snapshot">
+                <span class="snapshot-item">
+                    <span class="snapshot-name">Active Users</span>
+                    <span class="snapshot-value">24,828</span>
+                    <span class="snapshot-change positive">+8.32%</span>
+                </span>
+                <span class="snapshot-item">
+                    <span class="snapshot-name">API Requests</span>
+                    <span class="snapshot-value">12.4M</span>
+                    <span class="snapshot-change positive">+10.6%</span>
+                </span>
+                <span class="snapshot-item">
+                    <span class="snapshot-name">Data Syncs</span>
+                    <span class="snapshot-value">892K</span>
+                    <span class="snapshot-change positive">+5.22%</span>
+                </span>
+                <a href="/sections/dashboards.html" class="snapshot-link">Full Overview</a>
+            </div>
+
+            <!-- Page Header -->
+            <header class="reports-header">
+                <h1>Data & Research</h1>
+                <nav class="reports-nav">
+                    <a href="#" class="active">Dashboard</a>
+                    <a href="#">Data Pipeline</a>
+                    <a href="#">User Activity</a>
+                    <a href="#">Performance</a>
+                    <a href="#">Security</a>
+                    <a href="#">Infrastructure</a>
+                    <a href="#">API Usage</a>
+                    <a href="#">Integrations</a>
+                </nav>
+            </header>
+
+            <!-- Platform Overview -->
+            <section class="data-section">
+                <div class="section-header-row">
+                    <h2 class="section-title">Platform Overview</h2>
+                </div>
+                
+                <div class="metrics-header">
+                    <div class="metric-legend">
+                        <span class="legend-dot primary"></span>
+                        <span class="legend-label">Active Users</span>
+                    </div>
+                    <div class="metric-legend">
+                        <span class="legend-value">24,828</span>
+                        <span class="legend-change positive">+2,156 (+8.7%)</span>
+                    </div>
+                    <div class="metric-legend">
+                        <span class="legend-dot secondary"></span>
+                        <span class="legend-label">API Requests</span>
+                    </div>
+                    <div class="metric-legend">
+                        <span class="legend-value">12.4M</span>
+                        <span class="legend-change positive">+1.2M (+10.7%)</span>
+                    </div>
+                    <span class="timestamp">2:34 PM ET Dec 26, 2024</span>
+                </div>
+                
+                <div class="chart-area">
+                    <div class="chart-line">
+                        <svg viewBox="0 0 800 120" preserveAspectRatio="none">
+                            <path d="M0,80 C50,75 100,70 150,65 C200,60 250,55 300,50 C350,45 400,40 450,35 C500,30 550,25 600,30 C650,35 700,25 750,20 L800,15" 
+                                  fill="none" stroke="#0d0d0d" stroke-width="2"/>
+                            <path d="M0,90 C50,88 100,85 150,82 C200,80 250,78 300,75 C350,72 400,70 450,68 C500,65 550,63 600,65 C650,68 700,60 750,58 L800,55" 
+                                  fill="none" stroke="#a6a6a6" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div class="chart-axis">
+                        <span>9:00 AM</span>
+                        <span>10:00 AM</span>
+                        <span>11:00 AM</span>
+                        <span>12:00 PM</span>
+                        <span>1:00 PM</span>
+                        <span>2:00 PM</span>
+                        <span>3:00 PM</span>
+                        <span>4:00 PM</span>
+                    </div>
+                    <div class="chart-y-axis">
+                        <div>+0.4%</div>
+                        <div style="margin-top: 40px;">+0.2%</div>
+                        <div style="margin-top: 40px;">0%</div>
+                    </div>
+                </div>
+
+                <!-- Spotlight Tables -->
+                <div class="spotlight-grid">
+                    <div class="spotlight-column">
+                        <h4>Most Active Dashboards</h4>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Dashboard</th>
+                                    <th>Views</th>
+                                    <th>Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="name">Revenue Analytics</td>
+                                    <td class="value">4,521</td>
+                                    <td class="change positive">+12.3%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Customer Insights</td>
+                                    <td class="value">3,892</td>
+                                    <td class="change positive">+8.7%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Sales Pipeline</td>
+                                    <td class="value">3,445</td>
+                                    <td class="change positive">+5.2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Marketing ROI</td>
+                                    <td class="value">2,987</td>
+                                    <td class="change negative">-2.1%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Operations Overview</td>
+                                    <td class="value">2,654</td>
+                                    <td class="change positive">+15.8%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Executive Summary</td>
+                                    <td class="value">2,341</td>
+                                    <td class="change positive">+3.4%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Product Analytics</td>
+                                    <td class="value">1,987</td>
+                                    <td class="change positive">+22.1%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">HR Metrics</td>
+                                    <td class="value">1,654</td>
+                                    <td class="change negative">-4.5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="spotlight-column">
+                        <h4>Top Data Connectors</h4>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Connector</th>
+                                    <th>Syncs</th>
+                                    <th>Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="name">Salesforce</td>
+                                    <td class="value">892K</td>
+                                    <td class="change positive">+5.4%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Snowflake</td>
+                                    <td class="value">756K</td>
+                                    <td class="change positive">+12.8%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">BigQuery</td>
+                                    <td class="value">623K</td>
+                                    <td class="change positive">+8.9%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">PostgreSQL</td>
+                                    <td class="value">445K</td>
+                                    <td class="change positive">+3.2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">HubSpot</td>
+                                    <td class="value">387K</td>
+                                    <td class="change positive">+18.4%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Stripe</td>
+                                    <td class="value">298K</td>
+                                    <td class="change positive">+7.6%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">AWS S3</td>
+                                    <td class="value">234K</td>
+                                    <td class="change positive">+4.1%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">MySQL</td>
+                                    <td class="value">198K</td>
+                                    <td class="change negative">-1.2%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="spotlight-column">
+                        <h4>Fastest Growing Accounts</h4>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Users</th>
+                                    <th>Growth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="name">Meridian Capital</td>
+                                    <td class="value">487</td>
+                                    <td class="change positive">+89.2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">HealthFirst Inc.</td>
+                                    <td class="value">342</td>
+                                    <td class="change positive">+67.4%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">TechNova Systems</td>
+                                    <td class="value">298</td>
+                                    <td class="change positive">+54.8%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Global Logistics Co.</td>
+                                    <td class="value">276</td>
+                                    <td class="change positive">+48.3%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Apex Financial</td>
+                                    <td class="value">245</td>
+                                    <td class="change positive">+42.1%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">RetailMax</td>
+                                    <td class="value">223</td>
+                                    <td class="change positive">+38.7%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">Innovate Labs</td>
+                                    <td class="value">198</td>
+                                    <td class="change positive">+35.2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="name">CloudPeak Energy</td>
+                                    <td class="value">176</td>
+                                    <td class="change positive">+31.8%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Regional Performance -->
+            <section class="data-section">
+                <div class="section-header-row">
+                    <h2 class="section-title">Regional Performance</h2>
+                </div>
+                
+                <div class="markets-grid">
+                    <div class="market-card">
+                        <h4>Americas</h4>
+                        <div class="index-name">North & South America</div>
+                        <div class="market-chart">
+                            <svg viewBox="0 0 200 100" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                                <path d="M0,70 C20,65 40,68 60,55 C80,42 100,38 120,35 C140,32 160,28 180,25 L200,20" 
+                                      fill="none" stroke="#0d0d0d" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="market-card">
+                        <h4>Europe</h4>
+                        <div class="index-name">EMEA Region</div>
+                        <div class="market-chart">
+                            <svg viewBox="0 0 200 100" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                                <path d="M0,50 C20,48 40,52 60,45 C80,38 100,42 120,35 C140,38 160,32 180,30 L200,28" 
+                                      fill="none" stroke="#0d0d0d" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="market-card">
+                        <h4>Asia-Pacific</h4>
+                        <div class="index-name">APAC Region</div>
+                        <div class="market-chart">
+                            <svg viewBox="0 0 200 100" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                                <path d="M0,60 C20,55 40,50 60,45 C80,50 100,42 120,38 C140,35 160,30 180,32 L200,28" 
+                                      fill="none" stroke="#0d0d0d" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Health & Infrastructure -->
+            <section class="data-section" style="border-bottom: none; height: fit-content;">
+                <div class="commodities-section">
+                    <div>
+                        <div class="section-header-row" style="margin-bottom: 16px;">
+                            <h2 class="section-title">System Health</h2>
+                            <div class="time-filters">
+                                <a href="#" class="active">1 Month</a>
+                                <a href="#">3 Month</a>
+                                <a href="#">1 Year</a>
+                            </div>
+                        </div>
+                        
+                        <div class="commodity-cards">
+                            <div class="commodity-card">
+                                <div class="label">CPU Usage (Cluster)</div>
+                                <div class="price">42.3%</div>
+                                <div class="meta">As of 2:34 PM ET<br>December 26, 2024</div>
+                                <div class="commodity-chart"></div>
+                            </div>
+                            
+                            <div class="commodity-card">
+                                <div class="label">Memory Utilization</div>
+                                <div class="price">68.7%</div>
+                                <div class="meta">As of 2:34 PM ET<br>December 26, 2024</div>
+                                <div class="commodity-chart"></div>
+                            </div>
+                            
+                            <div class="commodity-card">
+                                <div class="label">Storage Capacity</div>
+                                <div class="price">2.4 PB</div>
+                                <div class="meta">As of 2:34 PM ET<br>December 26, 2024</div>
+                                <div class="commodity-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="section-header-row" style="gap: 0px; height: 72px; padding-bottom: 0px; margin-bottom: 0;">
+                            <h2 class="section-title">Response Times</h2>
+                        </div>
+                        
+                        <table class="currency-table" style="margin-top: var(--space-6);">
+                            <thead>
+                                <tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ingestion Rate</td>
+                                    <td><strong>1.2M/s</strong> <span class="change positive">+8.4%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Transform Jobs</td>
+                                    <td><strong>4,521</strong> <span class="change positive">+12.1%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Queue Depth</td>
+                                    <td><strong>234</strong> <span class="change positive">-45</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Error Rate</td>
+                                    <td><strong>0.02%</strong> <span class="change positive">-0.01%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLA & Uptime -->
+            <section class="data-section" style="border-bottom: none;">
+                <div class="section-header-row">
+                    <h2 class="section-title">SLA & Uptime</h2>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-8);">
+                    <div>
+                        <h4 style="font-size: 16px; font-weight: 700; text-transform: none; letter-spacing: 0px; margin-bottom: var(--space-4);">Uptime History</h4>
+                        <div class="chart-area" style="height: 150px;">
+                            <svg viewBox="0 0 300 100" preserveAspectRatio="none" style="width: 100%; height: 80%;">
+                                <path d="M0,10 L300,10" fill="none" stroke="#059669" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.625rem; color: var(--color-ink-400); margin-top: var(--space-2);">
+                            <span>3 Months</span>
+                            <span>6 Months</span>
+                            <span>2 Years</span>
+                            <span>5 Years</span>
+                            <span>10 Years</span>
+                            <span>30 Years</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-size: 16px; font-weight: 700; text-transform: none; letter-spacing: 0px; margin-bottom: var(--space-4);">SLA Targets</h4>
+                        <div class="chart-area" style="height: 150px;"></div>
+                        <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4); padding-top: 8px;">
+                            <div style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span style="width: 12px; height: 12px; background: #059669; border-radius: 2px;"></span>
+                                <span style="font-size: 0.6875rem;">Current</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span style="width: 12px; height: 12px; background: var(--color-ink-300); border-radius: 2px;"></span>
+                                <span style="font-size: 0.6875rem;">Target</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-size: 16px; font-weight: 700; text-transform: none; letter-spacing: 0px; margin-bottom: var(--space-4);">Current Status</h4>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Status</th>
+                                    <th>Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Platform Uptime</td>
+                                    <td class="value">99.99%</td>
+                                    <td class="change positive">+0.01%</td>
+                                </tr>
+                                <tr>
+                                    <td>API Availability</td>
+                                    <td class="value">99.98%</td>
+                                    <td class="change positive">+0.02%</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Freshness</td>
+                                    <td class="value">99.95%</td>
+                                    <td class="change negative">-0.01%</td>
+                                </tr>
+                                <tr>
+                                    <td>Query Success</td>
+                                    <td class="value">99.97%</td>
+                                    <td class="change positive">+0.03%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <span class="footer-logo">DataBao<span>Media</span></span>
+                    <p class="footer-tagline">News, Analysis & Research</p>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2024 DataBao Inc. All rights reserved.</p>
+                    <nav class="legal-links">
+                        <a href="/pages/privacy.html">Privacy Policy</a>
+                        <a href="/pages/terms.html">Terms of Use</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Agent Chat Button -->
+    <button class="agent-trigger" id="agent-trigger" aria-label="Open AI assistant">
+        <svg class="agent-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+        </svg>
+        <span class="agent-trigger-text">Ask agent about anything...</span>
+        <span class="agent-trigger-arrow disabled">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </span>
+    </button>
+
+    <!-- AI Agent Expanded Chat -->
+    <div class="agent-expanded" id="agent-expanded">
+        <!-- Header -->
+        <div class="agent-expanded-header">
+            <span class="agent-expanded-title">AI Agent</span>
+            <div class="agent-expanded-header-actions">
+                <button class="agent-expanded-expand" aria-label="Pin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="17" x2="12" y2="22"></line>
+                        <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+                    </svg>
+                </button>
+                <button class="agent-expanded-close" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Chat History Tabs -->
+        <div class="agent-chat-tabs" id="agent-chat-tabs">
+            <div class="agent-chat-tabs-scroll">
+                <div class="agent-chat-tab active" data-tab-id="1">
+                    <span class="agent-chat-tab-title">Industry Analysis</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="agent-chat-tab" data-tab-id="2">
+                    <span class="agent-chat-tab-title">Data Insights</span>
+                    <button class="agent-chat-tab-close" aria-label="Close tab">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <button class="agent-chat-tab-new" id="agent-new-chat" aria-label="New chat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="agent-suggestions" id="agent-suggestions">
+            <div class="agent-suggestions-grid">
+                <button class="agent-suggestion" data-prompt="What are the latest research findings?">
+                    <span class="agent-suggestion-text">Latest research findings</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="Show me key data insights">
+                    <span class="agent-suggestion-text">Key data insights</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="Compare industry benchmarks">
+                    <span class="agent-suggestion-text">Industry benchmarks</span>
+                </button>
+                <button class="agent-suggestion" data-prompt="What reports are available?">
+                    <span class="agent-suggestion-text">Available reports</span>
+                </button>
+            </div>
+        </div>
+        <div class="agent-expanded-chat" id="agent-expanded-chat"></div>
+        <div class="agent-expanded-inner">
+            <svg class="agent-expanded-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
+            </svg>
+            <textarea class="agent-expanded-input" id="agent-expanded-input" placeholder="What do you want the agent to do?" rows="1"></textarea>
+            <div class="agent-expanded-actions">
+                <button class="agent-expanded-send" id="agent-expanded-send" aria-label="Send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
